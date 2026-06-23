@@ -630,7 +630,7 @@
 
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 24px;
       max-width: 1200px;
       margin: 0 auto;
@@ -718,6 +718,7 @@
       margin: 0 auto;
       position: relative;
       flex-wrap: wrap;
+      padding: 0 16px;
     }
 
     .steps-line {
@@ -793,9 +794,10 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 14px;
-      max-width: 800px;
+      gap: 12px;
+      max-width: 860px;
       margin: 0 auto;
+      padding: 0 4px;
     }
     .mol-chip {
       display: flex;
@@ -1025,45 +1027,122 @@
       to   { transform: rotateY(360deg) rotateX(15deg); }
     }
 
-    /* ─── Responsive ─── */
+    /* ─── Tablet (≤ 900px) ─── */
     @media (max-width: 900px) {
-      .hero-inner { flex-direction: column; text-align: center; }
+      /* Hero */
+      #hero { padding: 100px 5vw 60px; }
+      .hero-inner { flex-direction: column; align-items: center; text-align: center; gap: 40px; }
       .hero-left { max-width: 100%; }
-      .hero-logo { margin: 0 auto 20px; }
-      .hero-desc { margin: 20px auto 0; }
+      .hero-logo { margin: 0 auto 16px; }
+      .hero-desc { margin: 16px auto 0; }
       .hero-cta-group { justify-content: center; }
       .hero-stats { justify-content: center; }
-      .hero-right { order: -1; }
-      .phone-wrap { width: 220px; }
-      .phone-frame { width: 220px; height: 440px; }
-      .hero-right { padding: 20px 80px 20px 40px; }
-      .badge-1 { right: -90px; font-size: .65rem; }
-      .badge-2 { left: -90px; font-size: .65rem; }
-      .badge-3 { right: -80px; font-size: .65rem; }
+
+      /* Phone mockup – show above text on tablet */
+      .hero-right { order: -1; padding: 10px 90px; }
+      .phone-wrap { width: 230px; }
+      .phone-frame { width: 230px; height: 460px; }
+      .badge-1 { right: -88px; }
+      .badge-2 { left: -88px; }
+      .badge-3 { right: -78px; }
+
+      /* How it works */
       .steps-line { display: none; }
-      .steps-wrap { gap: 32px; }
-      .cta-box { padding: 40px 24px; }
-      footer { flex-direction: column; text-align: center; }
-      .footer-links { justify-content: center; }
+      .steps-wrap { flex-direction: column; align-items: center; gap: 28px; }
+      .step-item { max-width: 360px; width: 100%; }
+
+      /* CTA */
+      .cta-box { padding: 48px 28px; }
+
+      /* Footer */
+      footer { flex-direction: column; align-items: center; text-align: center; }
+      .footer-links { justify-content: center; flex-wrap: wrap; }
     }
 
+    /* ─── Mobile (≤ 600px) ─── */
     @media (max-width: 600px) {
+      /* Navbar */
       .nav-links { display: none; }
       .hamburger { display: flex; }
       .nav-links.open {
         display: flex;
         flex-direction: column;
         position: fixed;
-        top: 70px; left: 0; right: 0;
+        top: 66px; left: 0; right: 0;
         background: rgba(240,249,255,.97);
         backdrop-filter: blur(20px);
-        padding: 24px;
-        gap: 20px;
+        padding: 20px 24px 28px;
+        gap: 18px;
         border-bottom: 1px solid rgba(14,165,233,.15);
         box-shadow: 0 8px 30px rgba(14,165,233,.1);
+        z-index: 99;
       }
+      .nav-links.open a { font-size: 1rem; }
+
+      /* Hero */
+      #hero { padding: 88px 20px 48px; }
+      .hero-inner { gap: 28px; }
+      .hero-badge { font-size: .75rem; }
+      .hero-logo { width: 90px; height: 90px; margin-bottom: 12px; }
+      .hero-desc { font-size: .95rem; }
+      .btn-primary { font-size: .92rem; padding: 13px 28px; }
+      .hero-stats { gap: 20px; }
+      .stat-num { font-size: 1.35rem; }
+      .stat-lbl { font-size: .7rem; }
+
+      /* Phone mockup – ẩn badges, thu nhỏ */
+      .hero-right { padding: 0 20px; }
+      .phone-wrap { width: 200px; }
+      .phone-frame { width: 200px; height: 400px; border-radius: 36px; }
+      .phone-outer-ring { border-radius: 44px; }
+      .phone-notch { width: 70px; height: 18px; }
       .badge-1, .badge-2, .badge-3 { display: none; }
-      .hero-right { padding: 20px 16px; }
+      .phone-mol-name { font-size: .78rem; }
+      .phone-mol-formula { font-size: .68rem; }
+      .phone-prop-label { font-size: .5rem; }
+      .phone-prop-val { font-size: .62rem; }
+      .phone-btn-demo { font-size: .7rem; padding: 9px; }
+
+      /* Sections */
+      #features { padding: 64px 16px; }
+      #how { padding: 64px 16px; }
+      #molecules { padding: 56px 16px; }
+      #cta { padding: 64px 16px 80px; }
+
+      /* Features grid – 1 cột */
+      .features-grid { grid-template-columns: 1fr; gap: 16px; }
+      .feature-card { padding: 28px 22px; }
+
+      /* Section header */
+      .section-header { margin-bottom: 40px; }
+      .section-tag { font-size: .7rem; padding: 5px 14px; }
+
+      /* Molecules chips */
+      .molecule-chips { gap: 10px; }
+      .mol-chip { font-size: .82rem; padding: 8px 14px; }
+
+      /* CTA box */
+      .cta-box { padding: 36px 20px; border-radius: 20px; }
+      .cta-title { font-size: 1.5rem; }
+      .cta-desc { font-size: .9rem; margin-bottom: 28px; }
+      .btn-glow { font-size: .95rem; padding: 14px 32px; }
+      .cta-note { font-size: .75rem; }
+
+      /* Footer */
+      footer { padding: 28px 20px; gap: 16px; }
+      .footer-links { gap: 16px; }
+
+      /* Steps */
+      .step-num { width: 66px; height: 66px; font-size: 1.3rem; }
+    }
+
+    /* ─── Small mobile (≤ 400px) ─── */
+    @media (max-width: 400px) {
+      .hero-logo { width: 76px; height: 76px; }
+      .phone-wrap { width: 178px; }
+      .phone-frame { width: 178px; height: 356px; border-radius: 32px; }
+      .mol-chip { font-size: .78rem; padding: 7px 12px; }
+      .hero-stats { gap: 14px; }
     }
   </style>
 </head>
