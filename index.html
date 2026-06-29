@@ -1035,6 +1035,238 @@
         color: rgba(10, 44, 98, 0.38);
       }
 
+      .btn-cta-outline {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        background: rgba(255, 255, 255, 0.92);
+        color: var(--blue);
+        font-size: 1.05rem;
+        font-weight: 700;
+        padding: 15px 36px;
+        border-radius: 50px;
+        text-decoration: none;
+        border: 2px solid rgba(8, 127, 232, 0.28);
+        box-shadow: 0 4px 18px rgba(8, 127, 232, 0.1);
+        transition:
+          transform var(--transition),
+          box-shadow var(--transition),
+          background var(--transition);
+      }
+      .btn-cta-outline:hover {
+        transform: translateY(-3px);
+        background: rgba(8, 127, 232, 0.05);
+        box-shadow: 0 10px 28px rgba(8, 127, 232, 0.18);
+      }
+
+      .cta-tagline {
+        margin-top: 18px;
+        font-size: 0.92rem;
+        font-weight: 600;
+        color: var(--blue);
+        font-style: italic;
+      }
+
+      /* ══════════════════════════════════════════
+       USER PROBLEM
+    ══════════════════════════════════════════ */
+      #problem {
+        background: var(--white);
+      }
+
+      .problem-card {
+        background: var(--white);
+        border: 1px solid rgba(8, 127, 232, 0.12);
+        border-radius: var(--radius-card);
+        padding: 28px 24px;
+        box-shadow: var(--shadow-card);
+        transition:
+          transform var(--transition),
+          box-shadow var(--transition);
+      }
+      .problem-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(8, 127, 232, 0.14);
+      }
+      .problem-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        background: rgba(239, 68, 68, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        margin-bottom: 16px;
+      }
+      .problem-title {
+        font-size: 1rem;
+        font-weight: 800;
+        color: var(--navy);
+        margin-bottom: 8px;
+      }
+      .problem-desc {
+        font-size: 0.88rem;
+        color: var(--text-body);
+        line-height: 1.7;
+      }
+
+      /* ══════════════════════════════════════════
+       BENEFITS
+    ══════════════════════════════════════════ */
+      #benefits {
+        background: linear-gradient(180deg, #f5fbff 0%, #ebf6ff 100%);
+      }
+
+      .benefit-card .feat-card-desc strong {
+        color: var(--blue);
+        font-weight: 700;
+      }
+
+      /* ══════════════════════════════════════════
+       SOCIAL PROOF
+    ══════════════════════════════════════════ */
+      #social-proof {
+        background: linear-gradient(180deg, #f5fbff 0%, #ebf6ff 100%);
+      }
+
+      .proof-badges {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 36px;
+      }
+      .proof-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--white);
+        border: 1px solid rgba(8, 127, 232, 0.15);
+        border-radius: 50px;
+        padding: 10px 18px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--navy);
+        box-shadow: 0 2px 10px rgba(8, 127, 232, 0.08);
+      }
+      .proof-badge span {
+        font-size: 1rem;
+      }
+
+      .proof-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 22px;
+      }
+      .proof-stat-card {
+        background: var(--white);
+        border: 1px solid rgba(8, 127, 232, 0.12);
+        border-radius: var(--radius-card);
+        padding: 32px 24px;
+        text-align: center;
+        box-shadow: var(--shadow-card);
+        transition:
+          transform var(--transition),
+          box-shadow var(--transition);
+      }
+      .proof-stat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(8, 127, 232, 0.14);
+      }
+      .proof-stat-num {
+        font-size: 2rem;
+        font-weight: 900;
+        color: var(--blue);
+        line-height: 1.1;
+        margin-bottom: 6px;
+      }
+      .proof-stat-label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--text-body);
+      }
+
+      /* ══════════════════════════════════════════
+       TESTIMONIALS
+    ══════════════════════════════════════════ */
+      #testimonials {
+        background: var(--white);
+      }
+
+      .testimonial-card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+      .testimonial-role-tag {
+        display: inline-block;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        color: var(--blue);
+        background: rgba(8, 127, 232, 0.08);
+        border: 1px solid rgba(8, 127, 232, 0.18);
+        padding: 4px 12px;
+        border-radius: 50px;
+        margin-bottom: 14px;
+        width: fit-content;
+      }
+      .testimonial-quote {
+        font-size: 0.92rem;
+        color: var(--text-body);
+        line-height: 1.75;
+        font-style: italic;
+        flex: 1;
+        margin-bottom: 18px;
+      }
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding-top: 16px;
+        border-top: 1px solid rgba(8, 127, 232, 0.1);
+      }
+      .testimonial-avatar {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.82rem;
+        font-weight: 800;
+        color: var(--white);
+        flex-shrink: 0;
+      }
+      .ta-1 {
+        background: linear-gradient(135deg, var(--cyan), var(--blue));
+      }
+      .ta-2 {
+        background: linear-gradient(135deg, #10b981, #059669);
+      }
+      .ta-3 {
+        background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      }
+      .testimonial-name {
+        font-size: 0.88rem;
+        font-weight: 800;
+        color: var(--navy);
+      }
+      .testimonial-meta {
+        font-size: 0.76rem;
+        color: var(--text-body);
+      }
+
+      /* Demo flow — 7 steps */
+      .steps-grid-full {
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      }
+      .steps-grid-full::before {
+        display: none;
+      }
+
       /* ══════════════════════════════════════════
        FOOTER
     ══════════════════════════════════════════ */
@@ -1716,6 +1948,121 @@
     </section>
 
     <!-- ═══════════════════════════════════════
+     USER PROBLEM
+════════════════════════════════════════ -->
+    <section id="problem" aria-labelledby="problem-heading">
+      <div class="section-wrap">
+        <div class="section-header reveal">
+          <div class="section-tag">Vấn đề học tập</div>
+          <div class="section-divider"></div>
+          <h2 class="section-title" id="problem-heading">
+            Tại sao học Hóa học <span>truyền thống</span> khó khăn?
+          </h2>
+          <p class="section-sub">
+            Nhiều học sinh gặp khó khăn khi tiếp cận hóa học qua sách giáo khoa
+            và bảng đen
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <div class="problem-card reveal" style="transition-delay: 0.05s">
+            <div class="problem-icon">🧬</div>
+            <h3 class="problem-title">Khó hình dung phân tử 3D</h3>
+            <p class="problem-desc">
+              Cấu trúc phân tử, liên kết và góc liên kết khó được mô tả đầy đủ
+              trên giấy, khiến học sinh khó hình dung không gian thực.
+            </p>
+          </div>
+
+          <div class="problem-card reveal" style="transition-delay: 0.1s">
+            <div class="problem-icon">⚗️</div>
+            <h3 class="problem-title">Thiếu cơ hội thực hành</h3>
+            <p class="problem-desc">
+              Phòng thí nghiệm không phải lúc nào cũng sẵn sàng, chi phí cao và
+              tiềm ẩn rủi ro an toàn khi thực hành.
+            </p>
+          </div>
+
+          <div class="problem-card reveal" style="transition-delay: 0.15s">
+            <div class="problem-icon">📖</div>
+            <h3 class="problem-title">Học từ sách dễ nhàm chán</h3>
+            <p class="problem-desc">
+              Phương pháp học một chiều khiến học sinh mất hứng thú, khó duy trì
+              sự tập trung trong thời gian dài.
+            </p>
+          </div>
+
+          <div class="problem-card reveal" style="transition-delay: 0.2s">
+            <div class="problem-icon">🧠</div>
+            <h3 class="problem-title">Khó ghi nhớ khái niệm</h3>
+            <p class="problem-desc">
+              Công thức, phản ứng và khái niệm trừu tượng khó được ghi nhớ lâu
+              dài nếu thiếu trải nghiệm trực quan.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+     BENEFITS
+════════════════════════════════════════ -->
+    <section id="benefits" aria-labelledby="benefits-heading">
+      <div class="section-wrap">
+        <div class="section-header reveal">
+          <div class="section-tag">Lợi ích</div>
+          <div class="section-divider"></div>
+          <h2 class="section-title" id="benefits-heading">
+            LABEDU giải quyết vấn đề <span>như thế nào?</span>
+          </h2>
+          <p class="section-sub">
+            Không chỉ là tính năng — LABEDU mang lại lợi ích thực sự cho người
+            học
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card benefit-card reveal" style="transition-delay: 0.05s">
+            <div class="feat-card-icon fci-1">🔬</div>
+            <h3 class="feat-card-title">Học Hóa Học qua Mô Hình 3D</h3>
+            <p class="feat-card-desc">
+              <strong>Nhìn thấy</strong> cấu trúc phân tử trong không gian thực
+              qua AR — xoay, phóng to và quan sát từ mọi góc độ, giúp hiểu sâu
+              hơn so với hình vẽ 2D.
+            </p>
+          </div>
+
+          <div class="feature-card benefit-card reveal" style="transition-delay: 0.1s">
+            <div class="feat-card-icon fci-2">🛡️</div>
+            <h3 class="feat-card-title">Thí Nghiệm Ảo An Toàn</h3>
+            <p class="feat-card-desc">
+              <strong>Thực hành không giới hạn</strong> trong môi trường ảo, không
+              lo hóa chất nguy hiểm hay thiếu dụng cụ phòng lab.
+            </p>
+          </div>
+
+          <div class="feature-card benefit-card reveal" style="transition-delay: 0.15s">
+            <div class="feat-card-icon fci-3">🃏</div>
+            <h3 class="feat-card-title">Flash Card Tương Tác</h3>
+            <p class="feat-card-desc">
+              <strong>Học chủ động</strong> bằng cách quét thẻ — mỗi Flash Card
+              kích hoạt nội dung AR, biến việc ôn tập thành trải nghiệm sống động.
+            </p>
+          </div>
+
+          <div class="feature-card benefit-card reveal" style="transition-delay: 0.2s">
+            <div class="feat-card-icon fci-4">📈</div>
+            <h3 class="feat-card-title">Tăng Hứng Thú Học Tập</h3>
+            <p class="feat-card-desc">
+              <strong>Gắn kết hơn</strong> với môn Hóa nhờ công nghệ AR — học sinh
+              tích cực khám phá thay vì tiếp nhận thụ động từ sách vở.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
      FEATURES
 ════════════════════════════════════════ -->
     <section id="features" aria-labelledby="features-heading">
@@ -1727,8 +2074,8 @@
             Học hóa học theo cách <span>hoàn toàn mới</span>
           </h2>
           <p class="section-sub">
-            Ứng dụng công nghệ AR tiên tiến mang lại trải nghiệm học tập độc đáo
-            và hiệu quả
+            Ứng dụng công nghệ AR tiên tiến — giúp bạn học trực quan, thực hành
+            an toàn và ôn tập hiệu quả hơn
           </p>
         </div>
 
@@ -1787,59 +2134,95 @@
           <div class="section-tag">Hướng dẫn sử dụng</div>
           <div class="section-divider"></div>
           <h2 class="section-title" id="how-heading">
-            Chỉ <span>4 bước</span> để bắt đầu
+            Quy trình sử dụng <span>7 bước</span>
           </h2>
           <p class="section-sub">
-            Đơn giản, trực quan và không cần thiết bị đặc biệt
+            Từ tải ứng dụng đến ôn tập — trải nghiệm đầy đủ LABEDU AR-Laboratory
           </p>
         </div>
 
-        <div class="steps-grid">
+        <div class="steps-grid steps-grid-full">
           <div class="step-item reveal" style="transition-delay: 0.05s">
             <div class="step-num" aria-hidden="true">
               📲
               <span class="step-num-label">01</span>
             </div>
             <div class="step-label">Bước 01</div>
-            <div class="step-title">Download App</div>
+            <div class="step-title">Tải Ứng Dụng</div>
             <p class="step-desc">
-              Tải ứng dụng LABEDU miễn phí từ APK hoặc cửa hàng ứng dụng
+              Tải LABEDU miễn phí qua APK trên Google Play
             </p>
           </div>
 
-          <div class="step-item reveal" style="transition-delay: 0.1s">
+          <div class="step-item reveal" style="transition-delay: 0.08s">
             <div class="step-num" aria-hidden="true">
               🚀
               <span class="step-num-label">02</span>
             </div>
             <div class="step-label">Bước 02</div>
-            <div class="step-title">Open LABEDU</div>
+            <div class="step-title">Mở LABEDU</div>
             <p class="step-desc">
-              Mở ứng dụng và đăng nhập hoặc tiếp tục không cần tài khoản
+              Khởi động ứng dụng và sẵn sàng khám phá
             </p>
           </div>
 
-          <div class="step-item reveal" style="transition-delay: 0.15s">
+          <div class="step-item reveal" style="transition-delay: 0.11s">
             <div class="step-num" aria-hidden="true">
               📸
               <span class="step-num-label">03</span>
             </div>
             <div class="step-label">Bước 03</div>
-            <div class="step-title">Scan Flash Card</div>
+            <div class="step-title">Quét Flash Card</div>
             <p class="step-desc">
-              Hướng camera về phía Flash Card hóa học để kích hoạt AR
+              Hướng camera về Flash Card để kích hoạt AR
+            </p>
+          </div>
+
+          <div class="step-item reveal" style="transition-delay: 0.14s">
+            <div class="step-num" aria-hidden="true">
+              🔬
+              <span class="step-num-label">04</span>
+            </div>
+            <div class="step-label">Bước 04</div>
+            <div class="step-title">Khám Phá Mô Hình AR</div>
+            <p class="step-desc">
+              Quan sát phân tử 3D hiện ra trong không gian thực
+            </p>
+          </div>
+
+          <div class="step-item reveal" style="transition-delay: 0.17s">
+            <div class="step-num" aria-hidden="true">
+              ⚗️
+              <span class="step-num-label">05</span>
+            </div>
+            <div class="step-label">Bước 05</div>
+            <div class="step-title">Thí Nghiệm Ảo</div>
+            <p class="step-desc">
+              Thực hiện thí nghiệm hóa học an toàn trong AR
             </p>
           </div>
 
           <div class="step-item reveal" style="transition-delay: 0.2s">
             <div class="step-num" aria-hidden="true">
-              ✨
-              <span class="step-num-label">04</span>
+              📝
+              <span class="step-num-label">06</span>
             </div>
-            <div class="step-label">Bước 04</div>
-            <div class="step-title">Explore AR Chemistry</div>
+            <div class="step-label">Bước 06</div>
+            <div class="step-title">Làm Quiz Ôn Tập</div>
             <p class="step-desc">
-              Khám phá thế giới phân tử 3D và thực hiện thí nghiệm ảo!
+              Tự kiểm tra kiến thức sau mỗi bài học
+            </p>
+          </div>
+
+          <div class="step-item reveal" style="transition-delay: 0.23s">
+            <div class="step-num" aria-hidden="true">
+              📊
+              <span class="step-num-label">07</span>
+            </div>
+            <div class="step-label">Bước 07</div>
+            <div class="step-title">Theo Dõi Tiến Độ</div>
+            <p class="step-desc">
+              Xem lại trình độ và biết phần nào cần ôn thêm
             </p>
           </div>
         </div>
@@ -1895,6 +2278,116 @@
     </section>
 
     <!-- ═══════════════════════════════════════
+     SOCIAL PROOF
+════════════════════════════════════════ -->
+    <section id="social-proof" aria-labelledby="social-proof-heading">
+      <div class="section-wrap">
+        <div class="section-header reveal">
+          <div class="section-tag">Độ tin cậy</div>
+          <div class="section-divider"></div>
+          <h2 class="section-title" id="social-proof-heading">
+            Dự án giáo dục <span>đáng tin cậy</span>
+          </h2>
+          <p class="section-sub">
+            LABEDU được phát triển bởi sinh viên FPT University, hướng tới giáo
+            dục Hóa học THPT
+          </p>
+        </div>
+
+        <div class="proof-badges reveal">
+          <div class="proof-badge"><span>🎓</span> Phát triển bởi sinh viên FPT University</div>
+          <div class="proof-badge"><span>🏆</span> Dự án Capstone EXE201</div>
+          <div class="proof-badge"><span>📚</span> Thiết kế cho Hóa học THPT</div>
+          <div class="proof-badge"><span>✨</span> Công nghệ AR tiên tiến</div>
+        </div>
+
+        <div class="proof-stats-grid reveal">
+          <div class="proof-stat-card">
+            <div class="proof-stat-num">16</div>
+            <div class="proof-stat-label">Flash Cards</div>
+          </div>
+          <div class="proof-stat-card">
+            <div class="proof-stat-num">16</div>
+            <div class="proof-stat-label">Mô hình AR</div>
+          </div>
+          <div class="proof-stat-card">
+            <div class="proof-stat-num">4</div>
+            <div class="proof-stat-label">Tính năng chính</div>
+          </div>
+          <div class="proof-stat-card">
+            <div class="proof-stat-num">100%</div>
+            <div class="proof-stat-label">Học tập tương tác</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+     TESTIMONIALS
+════════════════════════════════════════ -->
+    <section id="testimonials" aria-labelledby="testimonials-heading">
+      <div class="section-wrap">
+        <div class="section-header reveal">
+          <div class="section-tag">Phản hồi</div>
+          <div class="section-divider"></div>
+          <h2 class="section-title" id="testimonials-heading">
+            Ý kiến từ <span>người dùng</span>
+          </h2>
+          <p class="section-sub">
+            Phản hồi từ giáo viên, học sinh và người đánh giá dự án
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card testimonial-card reveal" style="transition-delay: 0.05s">
+            <span class="testimonial-role-tag">Giáo viên</span>
+            <p class="testimonial-quote">
+              "LABEDU giúp học sinh hình dung Hóa học dễ dàng hơn rất nhiều.
+              Mô hình AR trực quan hơn hẳn so với hình vẽ trên bảng."
+            </p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar ta-1">PH</div>
+              <div>
+                <div class="testimonial-name">ThS. Phạm Hải</div>
+                <div class="testimonial-meta">Giảng viên Hóa học – THPT</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-card testimonial-card reveal" style="transition-delay: 0.1s">
+            <span class="testimonial-role-tag">Học sinh</span>
+            <p class="testimonial-quote">
+              "Học Hóa bằng AR thú vị hơn nhiều so với đọc sách giáo khoa. Quét
+              Flash Card là thấy phân tử 3D hiện ra ngay — rất ấn tượng!"
+            </p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar ta-2">TN</div>
+              <div>
+                <div class="testimonial-name">Trần Ngọc</div>
+                <div class="testimonial-meta">Học sinh THPT – TP.HCM</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-card testimonial-card reveal" style="transition-delay: 0.15s">
+            <span class="testimonial-role-tag">Người đánh giá</span>
+            <p class="testimonial-quote">
+              "Một dự án giáo dục sáng tạo với giá trị thực tiễn rõ ràng. Ứng
+              dụng AR vào Hóa học là hướng đi đúng cho EdTech hiện nay."
+            </p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar ta-3">GV</div>
+              <div>
+                <div class="testimonial-name">Ban Giám Khảo</div>
+                <div class="testimonial-meta">Đánh giá dự án Capstone – FPT University</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
      FINAL CTA
 ════════════════════════════════════════ -->
     <section id="download" aria-labelledby="cta-heading">
@@ -1903,7 +2396,7 @@
           <div class="cta-box reveal">
             <span class="cta-emoji" aria-hidden="true">🧪</span>
             <h2 class="cta-title" id="cta-heading">
-              Sẵn sàng khám phá<br /><span>AR Chemistry Lab?</span>
+              Sẵn sàng trải nghiệm<br /><span>Hóa học trong AR?</span>
             </h2>
             <p class="cta-desc">
               Tải ngay ứng dụng miễn phí. Không cần đăng ký, không cần thiết bị
@@ -1911,7 +2404,25 @@
               Chỉ cần điện thoại Android và Flash Card LABEDU.
             </p>
             <div class="cta-btns">
-              <a href="https://play.google.com/apps/internaltest/4701604803919893584" target="_blank" rel="noopener" class="btn-glow" id="cta-download-btn">
+              <a href="https://play.google.com/apps/internaltest/4701604803919893584" target="_blank" rel="noopener" class="btn-glow" id="cta-start-btn">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M3 9h12M10 4l5 5-5 5"
+                    stroke="currentColor"
+                    stroke-width="2.2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                Start Testing
+              </a>
+              <a href="https://play.google.com/apps/internaltest/4701604803919893584" target="_blank" rel="noopener" class="btn-cta-outline" id="cta-download-btn">
                 <svg
                   width="18"
                   height="18"
@@ -1927,9 +2438,12 @@
                     stroke-linejoin="round"
                   />
                 </svg>
-                Download APK Now
+                Download APK
               </a>
             </div>
+            <p class="cta-tagline">
+              Trải nghiệm học Hóa học tương tác ngay hôm nay.
+            </p>
             <p class="cta-note">
               ✓ Miễn phí &nbsp;·&nbsp; ✓ Android &nbsp;·&nbsp; ✓ Không cần đăng
               ký
@@ -1955,6 +2469,7 @@
         <a href="#features">Tính năng</a>
         <a href="#how">Cách dùng</a>
         <a href="#molecules">Phân tử</a>
+        <a href="#testimonials">Phản hồi</a>
         <a href="https://play.google.com/apps/internaltest/4701604803919893584" target="_blank" rel="noopener">Download</a>
       </div>
 
