@@ -146,23 +146,34 @@
       .nav-links {
         display: flex;
         align-items: center;
-        gap: 4px;
+        gap: 6px;
         list-style: none;
       }
-      .nav-links li a {
+      .nav-links li a:not(.nav-cta) {
         text-decoration: none;
-        color: var(--text-body);
-        font-size: 0.9rem;
+        color: var(--navy);
+        font-size: 0.88rem;
         font-weight: 600;
-        padding: 8px 16px;
-        border-radius: 10px;
+        padding: 9px 18px;
+        border-radius: 50px;
+        border: 1px solid transparent;
         transition:
           color var(--transition),
-          background var(--transition);
+          background var(--transition),
+          border-color var(--transition),
+          transform var(--transition),
+          box-shadow var(--transition);
       }
-      .nav-links li a:hover {
+      .nav-links li a:not(.nav-cta):hover {
         color: var(--blue);
-        background: rgba(8, 127, 232, 0.06);
+        background: rgba(8, 127, 232, 0.08);
+        border-color: rgba(8, 127, 232, 0.18);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 14px rgba(8, 127, 232, 0.12);
+      }
+      .nav-links li a:not(.nav-cta):active {
+        transform: translateY(0);
+        box-shadow: none;
       }
 
       /* CTA button in nav */
@@ -187,6 +198,8 @@
       .nav-cta:hover {
         transform: translateY(-2px);
         box-shadow: 0 8px 28px rgba(8, 127, 232, 0.42);
+        background: linear-gradient(135deg, var(--cyan) 0%, var(--blue) 100%);
+        color: var(--white) !important;
       }
       .nav-cta svg {
         flex-shrink: 0;
@@ -247,20 +260,23 @@
       .mobile-menu.open {
         display: flex;
       }
-      .mobile-menu a {
+      .mobile-menu a:not(.mobile-cta) {
         text-decoration: none;
-        color: var(--text-body);
+        color: var(--navy);
         font-size: 0.95rem;
         font-weight: 600;
-        padding: 12px 16px;
-        border-radius: 10px;
+        padding: 12px 18px;
+        border-radius: 50px;
+        border: 1px solid transparent;
         transition:
           color var(--transition),
-          background var(--transition);
+          background var(--transition),
+          border-color var(--transition);
       }
-      .mobile-menu a:hover {
+      .mobile-menu a:not(.mobile-cta):hover {
         color: var(--blue);
-        background: rgba(8, 127, 232, 0.06);
+        background: rgba(8, 127, 232, 0.08);
+        border-color: rgba(8, 127, 232, 0.18);
       }
       .mobile-menu .mobile-cta {
         margin-top: 8px;
@@ -270,6 +286,11 @@
         border-radius: 50px;
         font-weight: 700 !important;
         box-shadow: 0 4px 18px rgba(8, 127, 232, 0.28);
+      }
+      .mobile-menu .mobile-cta:hover {
+        background: linear-gradient(135deg, var(--cyan) 0%, var(--blue) 100%);
+        color: var(--white) !important;
+        box-shadow: 0 8px 28px rgba(8, 127, 232, 0.42);
       }
 
       /* ══════════════════════════════════════════
@@ -723,6 +744,12 @@
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
         gap: 22px;
+        align-items: start;
+      }
+
+      .problem-card,
+      .feature-card {
+        align-self: start;
       }
 
       .feature-card {
@@ -733,6 +760,8 @@
         position: relative;
         overflow: hidden;
         box-shadow: var(--shadow-card);
+        display: flex;
+        flex-direction: column;
         transition:
           transform var(--transition),
           box-shadow var(--transition),
@@ -816,101 +845,224 @@
       }
 
       /* ══════════════════════════════════════════
-       HOW IT WORKS
+       HOW IT WORKS — Step Slider
     ══════════════════════════════════════════ */
       #how {
         background: var(--white);
       }
 
-      .steps-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 28px;
-        position: relative;
-      }
-      .steps-grid::before {
-        content: "";
-        position: absolute;
-        top: 40px;
-        left: calc(12.5% + 20px);
-        right: calc(12.5% + 20px);
-        height: 2px;
-        background: linear-gradient(
-          90deg,
-          var(--cyan),
-          var(--blue),
-          var(--cyan)
-        );
-        opacity: 0.2;
-        z-index: 0;
+      .steps-slider {
+        max-width: 560px;
+        margin: 0 auto;
       }
 
-      .step-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        position: relative;
-        z-index: 1;
-      }
-      .step-num {
-        width: 78px;
-        height: 78px;
-        border-radius: 50%;
-        background: linear-gradient(
-          135deg,
-          rgba(20, 184, 245, 0.12),
-          rgba(255, 255, 255, 0.9)
-        );
-        border: 2px solid rgba(8, 127, 232, 0.25);
+      /* Progress dots 1–7 */
+      .steps-progress {
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.5rem;
-        margin-bottom: 20px;
-        box-shadow: 0 4px 20px rgba(8, 127, 232, 0.12);
+        gap: 0;
+        margin-bottom: 36px;
+        padding: 0 8px;
+      }
+      .steps-progress-line {
+        flex: 1;
+        height: 3px;
+        background: rgba(8, 127, 232, 0.12);
+        border-radius: 2px;
+        position: relative;
+        overflow: hidden;
+        min-width: 12px;
+        max-width: 48px;
+      }
+      .steps-progress-line-fill {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, var(--cyan), var(--blue));
+        border-radius: 2px;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s ease;
+      }
+      .steps-progress-line.is-done .steps-progress-line-fill {
+        transform: scaleX(1);
+      }
+      .step-dot {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        border: 2px solid rgba(8, 127, 232, 0.22);
+        background: var(--white);
+        color: var(--text-body);
+        font-size: 0.72rem;
+        font-weight: 800;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
         transition:
+          background var(--transition),
+          border-color var(--transition),
+          color var(--transition),
           transform var(--transition),
           box-shadow var(--transition);
+        font-family: inherit;
+        padding: 0;
+      }
+      .step-dot:hover {
+        border-color: var(--blue);
+        color: var(--blue);
+        transform: scale(1.08);
+      }
+      .step-dot.active {
+        background: linear-gradient(135deg, var(--cyan), var(--blue));
+        border-color: transparent;
+        color: var(--white);
+        box-shadow: 0 4px 18px rgba(8, 127, 232, 0.35);
+        transform: scale(1.12);
+      }
+      .step-dot.done {
+        background: rgba(8, 127, 232, 0.1);
+        border-color: var(--blue);
+        color: var(--blue);
+      }
+
+      .steps-viewport {
+        overflow: hidden;
+        border-radius: var(--radius-card);
+        touch-action: pan-y;
+      }
+      .steps-track {
+        display: flex;
+        transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+        will-change: transform;
+      }
+      .step-slide {
+        min-width: 100%;
+        flex-shrink: 0;
+        box-sizing: border-box;
+      }
+      .step-slide-inner {
+        background: var(--white);
+        border: 1px solid rgba(8, 127, 232, 0.14);
+        border-radius: var(--radius-card);
+        padding: 40px 32px 36px;
+        text-align: center;
+        box-shadow: var(--shadow-card);
+        margin: 4px;
+      }
+      .step-slide-inner .step-num {
+        width: 88px;
+        height: 88px;
+        border-radius: 50%;
+        background: linear-gradient(
+          135deg,
+          rgba(20, 184, 245, 0.14),
+          rgba(255, 255, 255, 0.95)
+        );
+        border: 2px solid rgba(8, 127, 232, 0.28);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        margin: 0 auto 22px;
+        box-shadow: 0 6px 24px rgba(8, 127, 232, 0.14);
         position: relative;
       }
-      .step-num-label {
+      .step-slide-inner .step-num-label {
         position: absolute;
-        top: -6px;
-        right: -6px;
-        width: 22px;
-        height: 22px;
+        top: -4px;
+        right: -4px;
+        width: 26px;
+        height: 26px;
         background: linear-gradient(135deg, var(--cyan), var(--blue));
         border-radius: 50%;
-        font-size: 0.6rem;
+        font-size: 0.65rem;
         font-weight: 800;
         color: white;
         display: flex;
         align-items: center;
         justify-content: center;
       }
-      .step-item:hover .step-num {
-        transform: scale(1.1);
-        box-shadow: 0 8px 30px rgba(8, 127, 232, 0.22);
-      }
       .step-label {
-        font-size: 0.7rem;
+        font-size: 0.72rem;
         font-weight: 700;
         color: var(--cyan);
-        letter-spacing: 1.5px;
+        letter-spacing: 1.8px;
         text-transform: uppercase;
-        margin-bottom: 6px;
-      }
-      .step-title {
-        font-size: 1rem;
-        font-weight: 800;
-        color: var(--navy);
         margin-bottom: 8px;
       }
+      .step-title {
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: var(--navy);
+        margin-bottom: 12px;
+      }
       .step-desc {
-        font-size: 0.85rem;
+        font-size: 0.92rem;
         color: var(--text-body);
-        line-height: 1.6;
+        line-height: 1.75;
+        max-width: 380px;
+        margin: 0 auto;
+      }
+
+      .steps-controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 28px;
+      }
+      .steps-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 11px 22px;
+        border-radius: 50px;
+        border: 1.5px solid rgba(8, 127, 232, 0.25);
+        background: var(--white);
+        color: var(--navy);
+        font-size: 0.88rem;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: inherit;
+        transition:
+          background var(--transition),
+          border-color var(--transition),
+          transform var(--transition),
+          box-shadow var(--transition);
+      }
+      .steps-btn:hover:not(:disabled) {
+        background: rgba(8, 127, 232, 0.06);
+        border-color: var(--blue);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(8, 127, 232, 0.12);
+      }
+      .steps-btn:disabled {
+        opacity: 0.35;
+        cursor: not-allowed;
+      }
+      .steps-btn-next {
+        background: linear-gradient(135deg, var(--cyan), var(--blue));
+        border-color: transparent;
+        color: var(--white);
+        box-shadow: 0 4px 18px rgba(8, 127, 232, 0.28);
+      }
+      .steps-btn-next:hover:not(:disabled) {
+        background: linear-gradient(135deg, var(--cyan), var(--blue));
+        box-shadow: 0 8px 28px rgba(8, 127, 232, 0.4);
+      }
+      .steps-counter {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--text-body);
+        min-width: 48px;
+        text-align: center;
+      }
+      .steps-counter span {
+        color: var(--blue);
+        font-size: 1.1rem;
       }
 
       /* ══════════════════════════════════════════
@@ -1080,6 +1232,8 @@
         border-radius: var(--radius-card);
         padding: 28px 24px;
         box-shadow: var(--shadow-card);
+        display: flex;
+        flex-direction: column;
         transition:
           transform var(--transition),
           box-shadow var(--transition);
@@ -1092,23 +1246,72 @@
         width: 52px;
         height: 52px;
         border-radius: 14px;
-        background: rgba(239, 68, 68, 0.08);
+        background: rgba(8, 127, 232, 0.06);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.4rem;
         margin-bottom: 16px;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+      .problem-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
       }
       .problem-title {
         font-size: 1rem;
         font-weight: 800;
         color: var(--navy);
-        margin-bottom: 8px;
+        margin-bottom: 0;
+      }
+
+      /* Card collapse — chỉ hiện icon + tiêu đề, phần dưới thu gọn */
+      .card-collapsible-body {
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        margin-top: 0;
+        transition:
+          max-height 0.4s ease,
+          opacity 0.3s ease,
+          margin-top 0.3s ease;
+      }
+      .card-collapsible-body.is-open {
+        opacity: 1;
+        margin-top: 12px;
+      }
+      .card-toggle-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        margin-top: 10px;
+        padding: 0;
+        border: none;
+        background: none;
+        color: var(--blue);
+        font-size: 0.8rem;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: inherit;
+        transition: color var(--transition);
+      }
+      .card-toggle-btn:hover {
+        color: var(--cyan-dark);
+      }
+      .card-toggle-btn span {
+        font-size: 0.75rem;
+        line-height: 1;
       }
       .problem-desc {
         font-size: 0.88rem;
         color: var(--text-body);
         line-height: 1.7;
+      }
+      .feat-card-title,
+      .step-title {
+        margin-bottom: 0;
       }
 
       /* ══════════════════════════════════════════
@@ -1121,6 +1324,17 @@
       .benefit-card .feat-card-desc strong {
         color: var(--blue);
         font-weight: 700;
+      }
+
+      .benefit-card .feat-card-icon {
+        overflow: hidden;
+        padding: 6px;
+      }
+      .benefit-card .feat-card-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
       }
 
       /* ══════════════════════════════════════════
@@ -1194,10 +1408,21 @@
         background: var(--white);
       }
 
+      #testimonials .features-grid {
+        align-items: start;
+      }
+
       .testimonial-card {
         display: flex;
         flex-direction: column;
-        height: 100%;
+      }
+      .testimonial-card.is-expanded .card-collapsible-body.is-open {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+      .testimonial-card.is-expanded .testimonial-author {
+        margin-top: auto;
       }
       .testimonial-role-tag {
         display: inline-block;
@@ -1259,19 +1484,12 @@
         color: var(--text-body);
       }
 
-      /* Demo flow — 7 steps */
-      .steps-grid-full {
-        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      }
-      .steps-grid-full::before {
-        display: none;
-      }
-
       /* ══════════════════════════════════════════
        FOOTER
     ══════════════════════════════════════════ */
       footer {
-        background: var(--navy);
+        background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%);
+        border-top: 1px solid rgba(8, 127, 232, 0.14);
         padding: 36px 5vw;
         display: flex;
         align-items: center;
@@ -1290,7 +1508,6 @@
         height: 36px;
         object-fit: contain;
         border-radius: 8px;
-        opacity: 0.9;
       }
       .footer-brand-text {
         display: flex;
@@ -1299,7 +1516,7 @@
       .footer-brand-name {
         font-size: 0.95rem;
         font-weight: 800;
-        color: rgba(255, 255, 255, 0.9);
+        color: var(--navy);
       }
       .footer-brand-name span {
         color: var(--cyan);
@@ -1307,7 +1524,7 @@
       .footer-brand-sub {
         font-size: 0.6rem;
         letter-spacing: 1.5px;
-        color: rgba(255, 255, 255, 0.38);
+        color: var(--text-body);
         text-transform: uppercase;
       }
       .footer-links {
@@ -1316,17 +1533,18 @@
         flex-wrap: wrap;
       }
       .footer-links a {
-        color: rgba(255, 255, 255, 0.5);
+        color: var(--navy);
         text-decoration: none;
         font-size: 0.85rem;
+        font-weight: 600;
         transition: color var(--transition);
       }
       .footer-links a:hover {
-        color: var(--cyan);
+        color: var(--blue);
       }
       .footer-copy {
         font-size: 0.78rem;
-        color: rgba(255, 255, 255, 0.28);
+        color: var(--text-body);
       }
 
       /* ══════════════════════════════════════════
@@ -1455,15 +1673,6 @@
           width: 190px;
         }
 
-        .steps-grid {
-          grid-template-columns: repeat(2, 1fr);
-        }
-        .steps-grid::before {
-          display: none;
-        }
-      }
-
-      /* Mobile ≤ 768px */
       @media (max-width: 768px) {
         #navbar {
           height: 68px;
@@ -1549,9 +1758,26 @@
           display: none !important;
         }
 
-        .steps-grid {
-          grid-template-columns: 1fr 1fr;
-          gap: 20px;
+        .steps-slider {
+          max-width: 100%;
+        }
+        .step-dot {
+          width: 32px;
+          height: 32px;
+          font-size: 0.65rem;
+        }
+        .steps-progress-line {
+          max-width: 24px;
+        }
+        .step-slide-inner {
+          padding: 32px 20px 28px;
+        }
+        .steps-controls {
+          gap: 12px;
+        }
+        .steps-btn {
+          padding: 10px 16px;
+          font-size: 0.82rem;
         }
         .cta-box {
           padding: 40px 24px;
@@ -1572,9 +1798,6 @@
         }
         .hero-features {
           flex-direction: column;
-        }
-        .steps-grid {
-          grid-template-columns: 1fr;
         }
         .section-wrap {
           padding: 70px 5vw;
@@ -1603,6 +1826,7 @@
         <li><a href="#how">Cách dùng</a></li>
         <li><a href="#molecules">Phân tử</a></li>
         <li>
+          <a href="https://play.google.com/apps/testing/com.hoaianstudio.labedu" target="_blank" rel="noopener" class="nav-cta" id="nav-download-btn">
           <a
             href="https://play.google.com/apps/internaltest/4701604803919893584"
             target="_blank"
@@ -1646,6 +1870,7 @@
       <a href="#features" onclick="closeMenu()">Tính năng</a>
       <a href="#how" onclick="closeMenu()">Cách dùng</a>
       <a href="#molecules" onclick="closeMenu()">Phân tử</a>
+      <a href="https://play.google.com/apps/testing/com.hoaianstudio.labedu" target="_blank" rel="noopener" class="mobile-cta" onclick="closeMenu()"
       <a
         href="https://play.google.com/apps/internaltest/4701604803919893584"
         target="_blank"
@@ -1721,6 +1946,7 @@
 
           <!-- CTA -->
           <div class="hero-cta-group">
+            <a href="https://play.google.com/apps/testing/com.hoaianstudio.labedu" target="_blank" rel="noopener" class="btn-download" id="hero-download-btn">
             <a
               href="https://play.google.com/apps/internaltest/4701604803919893584"
               target="_blank"
@@ -1861,7 +2087,9 @@
 
         <div class="features-grid">
           <div class="problem-card reveal" style="transition-delay: 0.05s">
-            <div class="problem-icon">🧬</div>
+            <div class="problem-icon">
+              <img src="3D.png" alt="Phân tử 3D" />
+            </div>
             <h3 class="problem-title">Khó hình dung phân tử 3D</h3>
             <p class="problem-desc">
               Cấu trúc phân tử, liên kết và góc liên kết khó được mô tả đầy đủ
@@ -1870,7 +2098,9 @@
           </div>
 
           <div class="problem-card reveal" style="transition-delay: 0.1s">
-            <div class="problem-icon">⚗️</div>
+            <div class="problem-icon">
+              <img src="Thực_hành.png" alt="Thực hành phòng lab" />
+            </div>
             <h3 class="problem-title">Thiếu cơ hội thực hành</h3>
             <p class="problem-desc">
               Phòng thí nghiệm không phải lúc nào cũng sẵn sàng, chi phí cao và
@@ -1879,7 +2109,9 @@
           </div>
 
           <div class="problem-card reveal" style="transition-delay: 0.15s">
-            <div class="problem-icon">📖</div>
+            <div class="problem-icon">
+              <img src="Sách.png" alt="Học từ sách" />
+            </div>
             <h3 class="problem-title">Học từ sách dễ nhàm chán</h3>
             <p class="problem-desc">
               Phương pháp học một chiều khiến học sinh mất hứng thú, khó duy trì
@@ -1888,7 +2120,9 @@
           </div>
 
           <div class="problem-card reveal" style="transition-delay: 0.2s">
-            <div class="problem-icon">🧠</div>
+            <div class="problem-icon">
+              <img src="Khái_niệm.png" alt="Khái niệm hóa học" />
+            </div>
             <h3 class="problem-title">Khó ghi nhớ khái niệm</h3>
             <p class="problem-desc">
               Công thức, phản ứng và khái niệm trừu tượng khó được ghi nhớ lâu
@@ -1918,7 +2152,9 @@
 
         <div class="features-grid">
           <div class="feature-card benefit-card reveal" style="transition-delay: 0.05s">
-            <div class="feat-card-icon fci-1">🔬</div>
+            <div class="feat-card-icon fci-1">
+              <img src="Mô_hình_3D.png" alt="Mô hình 3D" />
+            </div>
             <h3 class="feat-card-title">Học Hóa Học qua Mô Hình 3D</h3>
             <p class="feat-card-desc">
               <strong>Nhìn thấy</strong> cấu trúc phân tử trong không gian thực
@@ -1928,7 +2164,9 @@
           </div>
 
           <div class="feature-card benefit-card reveal" style="transition-delay: 0.1s">
-            <div class="feat-card-icon fci-2">🛡️</div>
+            <div class="feat-card-icon fci-2">
+              <img src="An_toàn.png" alt="Thí nghiệm an toàn" />
+            </div>
             <h3 class="feat-card-title">Thí Nghiệm Ảo An Toàn</h3>
             <p class="feat-card-desc">
               <strong>Thực hành không giới hạn</strong> trong môi trường ảo, không
@@ -1937,7 +2175,9 @@
           </div>
 
           <div class="feature-card benefit-card reveal" style="transition-delay: 0.15s">
-            <div class="feat-card-icon fci-3">🃏</div>
+            <div class="feat-card-icon fci-3">
+              <img src="Flash_card.png" alt="Flash Card tương tác" />
+            </div>
             <h3 class="feat-card-title">Flash Card Tương Tác</h3>
             <p class="feat-card-desc">
               <strong>Học chủ động</strong> bằng cách quét thẻ — mỗi Flash Card
@@ -1946,7 +2186,9 @@
           </div>
 
           <div class="feature-card benefit-card reveal" style="transition-delay: 0.2s">
-            <div class="feat-card-icon fci-4">📈</div>
+            <div class="feat-card-icon fci-4">
+              <img src="Hứng_thú.png" alt="Tăng hứng thú học tập" />
+            </div>
             <h3 class="feat-card-title">Tăng Hứng Thú Học Tập</h3>
             <p class="feat-card-desc">
               <strong>Gắn kết hơn</strong> với môn Hóa nhờ công nghệ AR — học sinh
@@ -2036,89 +2278,97 @@
           </p>
         </div>
 
-        <div class="steps-grid steps-grid-full">
-          <div class="step-item reveal" style="transition-delay: 0.05s">
-            <div class="step-num" aria-hidden="true">
-              📲
-              <span class="step-num-label">01</span>
-            </div>
-            <div class="step-label">Bước 01</div>
-            <div class="step-title">Tải Ứng Dụng</div>
-            <p class="step-desc">
-              Tải LABEDU miễn phí qua APK trên Google Play
-            </p>
+        <div class="steps-slider reveal" id="steps-slider">
+          <!-- Progress dots -->
+          <div class="steps-progress" id="steps-progress" role="tablist" aria-label="Các bước sử dụng">
+            <button type="button" class="step-dot active" data-step="0" aria-label="Bước 1" aria-selected="true">1</button>
+            <div class="steps-progress-line"><div class="steps-progress-line-fill"></div></div>
+            <button type="button" class="step-dot" data-step="1" aria-label="Bước 2">2</button>
+            <div class="steps-progress-line"><div class="steps-progress-line-fill"></div></div>
+            <button type="button" class="step-dot" data-step="2" aria-label="Bước 3">3</button>
+            <div class="steps-progress-line"><div class="steps-progress-line-fill"></div></div>
+            <button type="button" class="step-dot" data-step="3" aria-label="Bước 4">4</button>
+            <div class="steps-progress-line"><div class="steps-progress-line-fill"></div></div>
+            <button type="button" class="step-dot" data-step="4" aria-label="Bước 5">5</button>
+            <div class="steps-progress-line"><div class="steps-progress-line-fill"></div></div>
+            <button type="button" class="step-dot" data-step="5" aria-label="Bước 6">6</button>
+            <div class="steps-progress-line"><div class="steps-progress-line-fill"></div></div>
+            <button type="button" class="step-dot" data-step="6" aria-label="Bước 7">7</button>
           </div>
 
-          <div class="step-item reveal" style="transition-delay: 0.08s">
-            <div class="step-num" aria-hidden="true">
-              🚀
-              <span class="step-num-label">02</span>
+          <!-- Slides -->
+          <div class="steps-viewport" id="steps-viewport">
+            <div class="steps-track" id="steps-track">
+              <div class="step-slide" role="tabpanel">
+                <div class="step-slide-inner">
+                  <div class="step-num" aria-hidden="true">📲<span class="step-num-label">01</span></div>
+                  <div class="step-label">Bước 01</div>
+                  <div class="step-title">Tải Ứng Dụng</div>
+                  <p class="step-desc">Tải LABEDU miễn phí qua APK trên Google Play</p>
+                </div>
+              </div>
+              <div class="step-slide" role="tabpanel">
+                <div class="step-slide-inner">
+                  <div class="step-num" aria-hidden="true">🚀<span class="step-num-label">02</span></div>
+                  <div class="step-label">Bước 02</div>
+                  <div class="step-title">Mở LABEDU</div>
+                  <p class="step-desc">Khởi động ứng dụng và sẵn sàng khám phá</p>
+                </div>
+              </div>
+              <div class="step-slide" role="tabpanel">
+                <div class="step-slide-inner">
+                  <div class="step-num" aria-hidden="true">📸<span class="step-num-label">03</span></div>
+                  <div class="step-label">Bước 03</div>
+                  <div class="step-title">Quét Flash Card</div>
+                  <p class="step-desc">Hướng camera về Flash Card để kích hoạt AR</p>
+                </div>
+              </div>
+              <div class="step-slide" role="tabpanel">
+                <div class="step-slide-inner">
+                  <div class="step-num" aria-hidden="true">🔬<span class="step-num-label">04</span></div>
+                  <div class="step-label">Bước 04</div>
+                  <div class="step-title">Khám Phá Mô Hình AR</div>
+                  <p class="step-desc">Quan sát phân tử 3D hiện ra trong không gian thực</p>
+                </div>
+              </div>
+              <div class="step-slide" role="tabpanel">
+                <div class="step-slide-inner">
+                  <div class="step-num" aria-hidden="true">⚗️<span class="step-num-label">05</span></div>
+                  <div class="step-label">Bước 05</div>
+                  <div class="step-title">Thí Nghiệm Ảo</div>
+                  <p class="step-desc">Thực hiện thí nghiệm hóa học an toàn trong AR</p>
+                </div>
+              </div>
+              <div class="step-slide" role="tabpanel">
+                <div class="step-slide-inner">
+                  <div class="step-num" aria-hidden="true">📝<span class="step-num-label">06</span></div>
+                  <div class="step-label">Bước 06</div>
+                  <div class="step-title">Làm Quiz Ôn Tập</div>
+                  <p class="step-desc">Tự kiểm tra kiến thức sau mỗi bài học</p>
+                </div>
+              </div>
+              <div class="step-slide" role="tabpanel">
+                <div class="step-slide-inner">
+                  <div class="step-num" aria-hidden="true">📊<span class="step-num-label">07</span></div>
+                  <div class="step-label">Bước 07</div>
+                  <div class="step-title">Theo Dõi Tiến Độ</div>
+                  <p class="step-desc">Xem lại trình độ và biết phần nào cần ôn thêm</p>
+                </div>
+              </div>
             </div>
-            <div class="step-label">Bước 02</div>
-            <div class="step-title">Mở LABEDU</div>
-            <p class="step-desc">
-              Khởi động ứng dụng và sẵn sàng khám phá
-            </p>
           </div>
 
-          <div class="step-item reveal" style="transition-delay: 0.11s">
-            <div class="step-num" aria-hidden="true">
-              📸
-              <span class="step-num-label">03</span>
+          <!-- Controls -->
+          <div class="steps-controls">
+            <button type="button" class="steps-btn steps-btn-prev" id="steps-prev" aria-label="Bước trước">
+              ← Trước
+            </button>
+            <div class="steps-counter" id="steps-counter" aria-live="polite">
+              <span>1</span> / 7
             </div>
-            <div class="step-label">Bước 03</div>
-            <div class="step-title">Quét Flash Card</div>
-            <p class="step-desc">
-              Hướng camera về Flash Card để kích hoạt AR
-            </p>
-          </div>
-
-          <div class="step-item reveal" style="transition-delay: 0.14s">
-            <div class="step-num" aria-hidden="true">
-              🔬
-              <span class="step-num-label">04</span>
-            </div>
-            <div class="step-label">Bước 04</div>
-            <div class="step-title">Khám Phá Mô Hình AR</div>
-            <p class="step-desc">
-              Quan sát phân tử 3D hiện ra trong không gian thực
-            </p>
-          </div>
-
-          <div class="step-item reveal" style="transition-delay: 0.17s">
-            <div class="step-num" aria-hidden="true">
-              ⚗️
-              <span class="step-num-label">05</span>
-            </div>
-            <div class="step-label">Bước 05</div>
-            <div class="step-title">Thí Nghiệm Ảo</div>
-            <p class="step-desc">
-              Thực hiện thí nghiệm hóa học an toàn trong AR
-            </p>
-          </div>
-
-          <div class="step-item reveal" style="transition-delay: 0.2s">
-            <div class="step-num" aria-hidden="true">
-              📝
-              <span class="step-num-label">06</span>
-            </div>
-            <div class="step-label">Bước 06</div>
-            <div class="step-title">Làm Quiz Ôn Tập</div>
-            <p class="step-desc">
-              Tự kiểm tra kiến thức sau mỗi bài học
-            </p>
-          </div>
-
-          <div class="step-item reveal" style="transition-delay: 0.23s">
-            <div class="step-num" aria-hidden="true">
-              📊
-              <span class="step-num-label">07</span>
-            </div>
-            <div class="step-label">Bước 07</div>
-            <div class="step-title">Theo Dõi Tiến Độ</div>
-            <p class="step-desc">
-              Xem lại trình độ và biết phần nào cần ôn thêm
-            </p>
+            <button type="button" class="steps-btn steps-btn-next" id="steps-next" aria-label="Bước tiếp">
+              Tiếp →
+            </button>
           </div>
         </div>
       </div>
@@ -2299,7 +2549,7 @@
               Chỉ cần điện thoại Android và Flash Card LABEDU.
             </p>
             <div class="cta-btns">
-              <a href="https://play.google.com/apps/internaltest/4701604803919893584" target="_blank" rel="noopener" class="btn-glow" id="cta-start-btn">
+              <a href="https://play.google.com/apps/testing/com.hoaianstudio.labedu" target="_blank" rel="noopener" class="btn-glow" id="cta-start-btn">
                 <svg
                   width="18"
                   height="18"
@@ -2317,6 +2567,7 @@
                 </svg>
                 Start Testing
               </a>
+              <a href="https://play.google.com/apps/testing/com.hoaianstudio.labedu" target="_blank" rel="noopener" class="btn-cta-outline" id="cta-download-btn">
               <a href="https://play.google.com/apps/internaltest/4701604803919893584" target="_blank" rel="noopener" class="btn-cta-outline" id="cta-download-btn">
               <a
                 href="https://play.google.com/apps/internaltest/4701604803919893584"
@@ -2372,6 +2623,7 @@
         <a href="#how">Cách dùng</a>
         <a href="#molecules">Phân tử</a>
         <a href="#testimonials">Phản hồi</a>
+        <a href="https://play.google.com/apps/testing/com.hoaianstudio.labedu" target="_blank" rel="noopener">Download</a>
         <a href="https://play.google.com/apps/internaltest/4701604803919893584" target="_blank" rel="noopener">Download</a>
         <a
           href="https://play.google.com/apps/internaltest/4701604803919893584"
@@ -2443,6 +2695,196 @@
       document.querySelectorAll(".reveal, .reveal-left").forEach(function (el) {
         revealObserver.observe(el);
       });
+
+      /* ── Collapsible cards — icon + title only, body hidden ── */
+      (function initCollapsibleCards() {
+        const configs = [
+          { card: ".problem-card", anchor: ".problem-title" },
+          {
+            card: ".feature-card:not(.testimonial-card)",
+            anchor: ".feat-card-title",
+          },
+          { card: ".testimonial-card", anchor: ".testimonial-role-tag" },
+        ];
+
+        function syncTestimonialHeights(cardEl) {
+          const grid = cardEl.closest(".features-grid");
+          if (!grid || !grid.closest("#testimonials")) return;
+
+          const cards = grid.querySelectorAll(".testimonial-card");
+          cards.forEach(function (card) {
+            card.style.minHeight = "";
+          });
+
+          const expanded = Array.from(cards).filter(function (card) {
+            return card.classList.contains("is-expanded");
+          });
+          if (expanded.length < 2) return;
+
+          let maxH = 0;
+          expanded.forEach(function (card) {
+            maxH = Math.max(maxH, card.offsetHeight);
+          });
+          expanded.forEach(function (card) {
+            card.style.minHeight = maxH + "px";
+          });
+        }
+
+        function scheduleTestimonialSync(cardEl) {
+          if (!cardEl.classList.contains("testimonial-card")) return;
+          setTimeout(function () {
+            syncTestimonialHeights(cardEl);
+          }, 420);
+        }
+
+        function closeCard(entry) {
+          entry.body.classList.remove("is-open");
+          entry.body.style.maxHeight = "0";
+          entry.toggle.setAttribute("aria-expanded", "false");
+          entry.toggle.innerHTML =
+            'Xem thêm <span aria-hidden="true">↓</span>';
+          entry.cardEl.classList.remove("is-expanded");
+          scheduleTestimonialSync(entry.cardEl);
+        }
+
+        function openCard(entry) {
+          entry.body.classList.add("is-open");
+          entry.body.style.maxHeight = entry.body.scrollHeight + "px";
+          entry.toggle.setAttribute("aria-expanded", "true");
+          entry.toggle.innerHTML =
+            'Thu gọn <span aria-hidden="true">↑</span>';
+          entry.cardEl.classList.add("is-expanded");
+          scheduleTestimonialSync(entry.cardEl);
+        }
+
+        configs.forEach(function (cfg) {
+          document.querySelectorAll(cfg.card).forEach(function (cardEl) {
+            if (cardEl.dataset.collapsibleReady) return;
+
+            const anchor = cardEl.querySelector(cfg.anchor);
+            if (!anchor) return;
+
+            const body = document.createElement("div");
+            body.className = "card-collapsible-body";
+
+            const toMove = [];
+            let next = anchor.nextElementSibling;
+            while (next) {
+              toMove.push(next);
+              next = next.nextElementSibling;
+            }
+            if (toMove.length === 0) return;
+
+            const toggle = document.createElement("button");
+            toggle.type = "button";
+            toggle.className = "card-toggle-btn";
+            toggle.setAttribute("aria-expanded", "false");
+            toggle.innerHTML = 'Xem thêm <span aria-hidden="true">↓</span>';
+
+            anchor.insertAdjacentElement("afterend", toggle);
+            toggle.insertAdjacentElement("afterend", body);
+            toMove.forEach(function (el) {
+              body.appendChild(el);
+            });
+
+            const entry = { cardEl: cardEl, body: body, toggle: toggle };
+
+            toggle.addEventListener("click", function () {
+              if (body.classList.contains("is-open")) {
+                closeCard(entry);
+              } else {
+                openCard(entry);
+              }
+            });
+
+            cardEl.dataset.collapsibleReady = "true";
+          });
+        });
+      })();
+
+      /* ── Steps slider ── */
+      (function initStepsSlider() {
+        const track = document.getElementById("steps-track");
+        const viewport = document.getElementById("steps-viewport");
+        const prevBtn = document.getElementById("steps-prev");
+        const nextBtn = document.getElementById("steps-next");
+        const counter = document.getElementById("steps-counter");
+        const dots = document.querySelectorAll(".step-dot");
+        const lines = document.querySelectorAll(".steps-progress-line");
+        if (!track || !prevBtn || !nextBtn) return;
+
+        const total = track.children.length;
+        let current = 0;
+        let touchStartX = 0;
+
+        function goTo(index, wrap) {
+          if (wrap) {
+            if (index < 0) index = total - 1;
+            if (index >= total) index = 0;
+          } else {
+            index = Math.max(0, Math.min(total - 1, index));
+          }
+          current = index;
+          track.style.transform = "translateX(-" + current * 100 + "%)";
+
+          dots.forEach(function (dot, i) {
+            dot.classList.toggle("active", i === current);
+            dot.classList.toggle("done", i < current);
+            dot.setAttribute("aria-selected", i === current ? "true" : "false");
+          });
+
+          lines.forEach(function (line, i) {
+            line.classList.toggle("is-done", i < current);
+          });
+
+          counter.innerHTML = "<span>" + (current + 1) + "</span> / " + total;
+        }
+
+        prevBtn.addEventListener("click", function () {
+          goTo(current - 1, true);
+        });
+        nextBtn.addEventListener("click", function () {
+          goTo(current + 1, true);
+        });
+
+        dots.forEach(function (dot) {
+          dot.addEventListener("click", function () {
+            goTo(parseInt(dot.dataset.step, 10));
+          });
+        });
+
+        if (viewport) {
+          viewport.addEventListener(
+            "touchstart",
+            function (e) {
+              touchStartX = e.changedTouches[0].screenX;
+            },
+            { passive: true },
+          );
+          viewport.addEventListener(
+            "touchend",
+            function (e) {
+              const diff = touchStartX - e.changedTouches[0].screenX;
+              if (Math.abs(diff) > 50) {
+                goTo(diff > 0 ? current + 1 : current - 1, true);
+              }
+            },
+            { passive: true },
+          );
+        }
+
+        document.addEventListener("keydown", function (e) {
+          if (!document.getElementById("how").contains(document.activeElement) &&
+              document.activeElement !== document.body) return;
+          const section = document.getElementById("how");
+          const rect = section.getBoundingClientRect();
+          if (rect.top > window.innerHeight || rect.bottom < 0) return;
+          if (e.key === "ArrowRight") goTo(current + 1, true);
+          if (e.key === "ArrowLeft") goTo(current - 1, true);
+        });
+
+        goTo(0);
+      })();
 
       /* ── Smooth anchor navigation ── */
       document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
