@@ -985,10 +985,10 @@
         will-change: transform;
       }
       .step-slide {
-        flex: 0 0 100%;
-        width: 100%;
+        flex: 0 0 auto;
+        width: auto;
         box-sizing: border-box;
-        padding: 0 2px;
+        padding: 0;
       }
       .step-slide-inner {
         background: var(--white);
@@ -998,6 +998,8 @@
         text-align: center;
         box-shadow: var(--shadow-card);
         margin: 0;
+        width: 100%;
+        box-sizing: border-box;
       }
       .step-slide-inner .step-num {
         width: 88px;
@@ -1922,12 +1924,17 @@
           max-width: 100%;
           width: 100%;
           overflow: hidden;
+          padding: 0;
         }
         .steps-viewport {
           width: 100%;
         }
         .step-slide {
           padding: 0;
+        }
+        .step-slide-inner {
+          width: 100%;
+          padding: 24px 16px 20px;
         }
         .steps-progress {
           justify-content: flex-start;
@@ -1951,9 +1958,6 @@
         .steps-progress-line {
           min-width: 8px;
           max-width: 20px;
-        }
-        .step-slide-inner {
-          padding: 24px 16px 20px;
         }
         .step-slide-inner .step-num {
           width: 64px;
@@ -3334,7 +3338,20 @@
         let touchStartX = 0;
 
         function getSlideWidth() {
-          return viewport ? viewport.clientWidth : 0;
+          if (!viewport) return 0;
+          return Math.round(viewport.getBoundingClientRect().width);
+        }
+
+        function syncSlideWidths() {
+          const w = getSlideWidth();
+          if (!w) return;
+          Array.from(track.children).forEach(function (slide) {
+            slide.style.flex = "0 0 " + w + "px";
+            slide.style.width = w + "px";
+            slide.style.minWidth = w + "px";
+            slide.style.maxWidth = w + "px";
+          });
+          track.style.transform = "translateX(-" + current * w + "px)";
         }
 
         function goTo(index, wrap) {
@@ -3345,8 +3362,7 @@
             index = Math.max(0, Math.min(total - 1, index));
           }
           current = index;
-          track.style.transform =
-            "translateX(-" + current * getSlideWidth() + "px)";
+          syncSlideWidths();
 
           dots.forEach(function (dot, i) {
             dot.classList.toggle("active", i === current);
@@ -3415,8 +3431,20 @@
         goTo(0);
 
         window.addEventListener("resize", function () {
-          goTo(current, false);
+          syncSlideWidths();
         });
+
+        if (window.ResizeObserver && viewport) {
+          new ResizeObserver(function () {
+            syncSlideWidths();
+          }).observe(viewport);
+        }
+
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(function () {
+            syncSlideWidths();
+          });
+        }
       })();
 
       /* ── Smooth anchor navigation ── */
