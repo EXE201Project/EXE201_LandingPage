@@ -980,15 +980,28 @@
         touch-action: manipulation;
       }
       .steps-track {
-        display: flex;
-        transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-        will-change: transform;
+        display: block;
+        width: 100%;
+        position: relative;
       }
       .step-slide {
-        flex: 0 0 auto;
-        width: auto;
+        display: none;
+        width: 100%;
         box-sizing: border-box;
-        padding: 0;
+      }
+      .step-slide.is-active {
+        display: block;
+        animation: stepFadeIn 0.35s ease;
+      }
+      @keyframes stepFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
       .step-slide-inner {
         background: var(--white);
@@ -1928,9 +1941,6 @@
         }
         .steps-viewport {
           width: 100%;
-        }
-        .step-slide {
-          padding: 0;
         }
         .step-slide-inner {
           width: 100%;
@@ -3337,23 +3347,6 @@
         let current = 0;
         let touchStartX = 0;
 
-        function getSlideWidth() {
-          if (!viewport) return 0;
-          return Math.round(viewport.getBoundingClientRect().width);
-        }
-
-        function syncSlideWidths() {
-          const w = getSlideWidth();
-          if (!w) return;
-          Array.from(track.children).forEach(function (slide) {
-            slide.style.flex = "0 0 " + w + "px";
-            slide.style.width = w + "px";
-            slide.style.minWidth = w + "px";
-            slide.style.maxWidth = w + "px";
-          });
-          track.style.transform = "translateX(-" + current * w + "px)";
-        }
-
         function goTo(index, wrap) {
           if (wrap) {
             if (index < 0) index = total - 1;
@@ -3362,7 +3355,12 @@
             index = Math.max(0, Math.min(total - 1, index));
           }
           current = index;
-          syncSlideWidths();
+
+          Array.from(track.children).forEach(function (slide, i) {
+            var isActive = i === current;
+            slide.classList.toggle("is-active", isActive);
+            slide.setAttribute("aria-hidden", isActive ? "false" : "true");
+          });
 
           dots.forEach(function (dot, i) {
             dot.classList.toggle("active", i === current);
@@ -3429,22 +3427,6 @@
         });
 
         goTo(0);
-
-        window.addEventListener("resize", function () {
-          syncSlideWidths();
-        });
-
-        if (window.ResizeObserver && viewport) {
-          new ResizeObserver(function () {
-            syncSlideWidths();
-          }).observe(viewport);
-        }
-
-        if (document.fonts && document.fonts.ready) {
-          document.fonts.ready.then(function () {
-            syncSlideWidths();
-          });
-        }
       })();
 
       /* ── Smooth anchor navigation ── */
