@@ -845,6 +845,42 @@
         font-size: 1.6rem;
         margin-bottom: 20px;
       }
+      .feature-card .feat-card-icon {
+        width: 100%;
+        height: auto;
+        border-radius: 14px;
+        overflow: hidden;
+        margin-bottom: 18px;
+      }
+      .feature-card .feat-card-icon img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        display: block;
+        transition: transform 0.35s ease;
+      }
+      .feature-card:hover .feat-card-icon img {
+        transform: scale(1.04);
+      }
+      .step-img {
+        width: 100%;
+        max-width: 280px;
+        height: auto;
+        object-fit: contain;
+        border-radius: 16px;
+        margin: 10px auto 20px;
+        display: block;
+        box-shadow: 0 6px 24px rgba(8, 127, 232, 0.16);
+        border: 2px solid rgba(255, 255, 255, 0.85);
+      }
+      @media (max-width: 480px) {
+        .feature-card .feat-card-icon {
+          height: auto;
+        }
+        .step-img {
+          max-width: 100%;
+        }
+      }
       .fci-1 {
         background: rgba(8, 127, 232, 0.09);
       }
@@ -2726,7 +2762,7 @@
 
         <div class="features-grid">
           <div class="feature-card reveal" style="transition-delay: 0.05s">
-            <div class="feat-card-icon fci-1">🔬</div>
+            <div class="feat-card-icon fci-1"><img src="Xem phân tử AR.jpg" alt="Xem Phân Tử AR" loading="lazy"></div>
             <h3 class="feat-card-title">Xem Phân Tử AR</h3>
             <p class="feat-card-desc">
               Quét Flash Card để hiển thị mô hình phân tử 3D trực tiếp trong
@@ -2737,7 +2773,7 @@
           </div>
 
           <div class="feature-card reveal" style="transition-delay: 0.1s">
-            <div class="feat-card-icon fci-2">⚗️</div>
+            <div class="feat-card-icon fci-2"><img src="Thí nghiệm ảo .jpg" alt="Thí Nghiệm Ảo" loading="lazy"></div>
             <h3 class="feat-card-title">Thí Nghiệm Ảo</h3>
             <p class="feat-card-desc">
               Thực hiện các thí nghiệm hóa học ảo an toàn trong môi trường AR.
@@ -2748,7 +2784,7 @@
           </div>
 
           <div class="feature-card reveal" style="transition-delay: 0.15s">
-            <div class="feat-card-icon fci-3">🃏</div>
+            <div class="feat-card-icon fci-3"><img src="Flash card tương tác.jpg" alt="Flash Card Tương Tác" loading="lazy"></div>
             <h3 class="feat-card-title">Flash Card Tương Tác</h3>
             <p class="feat-card-desc">
               Bộ thẻ học thông minh được thiết kế để kích hoạt AR. Mỗi thẻ chứa
@@ -2758,7 +2794,7 @@
           </div>
 
           <div class="feature-card reveal" style="transition-delay: 0.2s">
-            <div class="feat-card-icon fci-4">🏆</div>
+            <div class="feat-card-icon fci-4"><img src="Quiz ôn tập.jpg" alt="Quiz Ôn Tập" loading="lazy"></div>
             <h3 class="feat-card-title">Quiz Ôn Tập</h3>
             <p class="feat-card-desc">
               Bộ câu hỏi trắc nghiệm giúp bạn tự kiểm tra kiến thức sau mỗi bài
@@ -2809,58 +2845,51 @@
             <div class="steps-track" id="steps-track">
               <div class="step-slide" role="tabpanel">
                 <div class="step-slide-inner">
-                  <div class="step-num" aria-hidden="true">📲<span class="step-num-label">01</span></div>
+                  <img src="Tải app.jpg" alt="Tải ứng dụng LABEDU" class="step-img" loading="lazy">
                   <div class="step-label">Bước 01</div>
                   <div class="step-title">Tải Ứng Dụng</div>
-                  <p class="step-desc">Tải LABEDU miễn phí qua APK trên Google Play</p>
                 </div>
               </div>
               <div class="step-slide" role="tabpanel">
                 <div class="step-slide-inner">
-                  <div class="step-num" aria-hidden="true">🚀<span class="step-num-label">02</span></div>
+                  <img src="Home.jpg" alt="Màn hình chính LABEDU" class="step-img" loading="lazy">
                   <div class="step-label">Bước 02</div>
                   <div class="step-title">Mở LABEDU</div>
-                  <p class="step-desc">Khởi động ứng dụng và sẵn sàng khám phá</p>
                 </div>
               </div>
               <div class="step-slide" role="tabpanel">
                 <div class="step-slide-inner">
-                  <div class="step-num" aria-hidden="true">📸<span class="step-num-label">03</span></div>
+                  <img src="Quét Flash Card.jpg" alt="Quét Flash Card bằng camera" class="step-img" loading="lazy">
                   <div class="step-label">Bước 03</div>
                   <div class="step-title">Quét Flash Card</div>
-                  <p class="step-desc">Hướng camera về Flash Card để kích hoạt AR</p>
                 </div>
               </div>
               <div class="step-slide" role="tabpanel">
                 <div class="step-slide-inner">
-                  <div class="step-num" aria-hidden="true">🔬<span class="step-num-label">04</span></div>
+                  <img src="Khám phá mô hình AR.jpg" alt="Khám phá mô hình AR 3D" class="step-img" loading="lazy">
                   <div class="step-label">Bước 04</div>
                   <div class="step-title">Khám Phá Mô Hình AR</div>
-                  <p class="step-desc">Quan sát phân tử 3D hiện ra trong không gian thực</p>
                 </div>
               </div>
               <div class="step-slide" role="tabpanel">
                 <div class="step-slide-inner">
-                  <div class="step-num" aria-hidden="true">⚗️<span class="step-num-label">05</span></div>
+                  <img src="Thí nghiệm ảo bước 5.jpg" alt="Thí nghiệm ảo trong AR" class="step-img" loading="lazy">
                   <div class="step-label">Bước 05</div>
                   <div class="step-title">Thí Nghiệm Ảo</div>
-                  <p class="step-desc">Thực hiện thí nghiệm hóa học an toàn trong AR</p>
                 </div>
               </div>
               <div class="step-slide" role="tabpanel">
                 <div class="step-slide-inner">
-                  <div class="step-num" aria-hidden="true">📝<span class="step-num-label">06</span></div>
+                  <img src="Làm Quiz ôn tập.jpg" alt="Làm Quiz ôn tập" class="step-img" loading="lazy">
                   <div class="step-label">Bước 06</div>
                   <div class="step-title">Làm Quiz Ôn Tập</div>
-                  <p class="step-desc">Tự kiểm tra kiến thức sau mỗi bài học</p>
                 </div>
               </div>
               <div class="step-slide" role="tabpanel">
                 <div class="step-slide-inner">
-                  <div class="step-num" aria-hidden="true">📊<span class="step-num-label">07</span></div>
+                  <img src="Theo dõi tiến độ.jpg" alt="Theo dõi tiến độ học tập" class="step-img" loading="lazy">
                   <div class="step-label">Bước 07</div>
                   <div class="step-title">Theo Dõi Tiến Độ</div>
-                  <p class="step-desc">Xem lại trình độ và biết phần nào cần ôn thêm</p>
                 </div>
               </div>
             </div>
