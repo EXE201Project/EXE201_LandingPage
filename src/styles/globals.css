@@ -2682,3 +2682,309 @@ body.menu-open {
     scroll-padding-inline: 12px;
   }
 }
+
+/* Responsive adaptation pass: mobile-first touch, tablet composition, wide-screen bounds */
+img {
+  max-width: 100%;
+}
+
+#problem .features-grid {
+  align-items: stretch;
+}
+
+#problem .problem-card {
+  align-self: stretch;
+  height: 100%;
+}
+
+.hamburger,
+.steps-btn,
+.step-dot,
+.mobile-menu a,
+.mobile-download-dock {
+  min-height: 44px;
+}
+
+.step-dot {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  font-size: 0.72rem;
+  scroll-snap-align: center;
+}
+
+.steps-progress {
+  scroll-snap-type: x proximity;
+  overscroll-behavior-inline: contain;
+}
+
+.mobile-download-dock {
+  display: none;
+}
+
+@media (min-width: 1441px) {
+  #navbar {
+    padding-inline: max(72px, calc((100vw - 1440px) / 2 + 72px));
+  }
+
+  .section-wrap {
+    max-width: 1180px;
+  }
+}
+
+/* Tablet: retain two-column scanning while making each card touch-friendly. */
+@media (min-width: 700px) and (max-width: 1023px) {
+  .section-wrap {
+    padding-inline: 32px;
+  }
+
+  #problem .features-grid,
+  #benefits .features-grid,
+  #features .features-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  #problem .problem-card,
+  #benefits .benefit-card {
+    display: block;
+    min-height: 0;
+  }
+
+  #problem .problem-icon,
+  #benefits .benefit-card .feat-card-icon {
+    height: clamp(190px, 26vw, 240px);
+    min-height: 0;
+  }
+
+  #problem .problem-content,
+  #benefits .benefit-content,
+  #features .feature-content,
+  #features .feature-card:first-child .feature-content {
+    min-height: 0;
+    padding: 22px;
+  }
+
+  #features .feature-card .feat-card-icon,
+  #features .feature-card:first-child .feat-card-icon {
+    height: clamp(200px, 27vw, 250px);
+  }
+
+  .steps-slider {
+    max-width: 680px;
+  }
+
+  .proof-badges {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 760px;
+    margin-inline: auto;
+  }
+
+  .proof-badge {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .proof-stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .proof-stat-card {
+    height: 100%;
+  }
+}
+
+@media (max-width: 699px) {
+  body {
+    overflow-x: clip;
+  }
+
+  #navbar {
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
+
+  .section-wrap {
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
+
+  #problem .features-grid,
+  #benefits .features-grid,
+  #features .features-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .section-title,
+  .hero-title,
+  .cta-title {
+    overflow-wrap: anywhere;
+    text-wrap: balance;
+  }
+
+  .section-sub,
+  .hero-desc,
+  .cta-desc {
+    text-wrap: pretty;
+  }
+
+  .steps-progress {
+    justify-content: flex-start;
+    gap: 0;
+    margin-inline: calc(-1 * max(16px, env(safe-area-inset-left)));
+    padding: 8px max(20px, env(safe-area-inset-left)) 12px;
+    scroll-padding-inline: max(20px, env(safe-area-inset-left));
+  }
+
+  .steps-progress-line {
+    min-width: 14px;
+    max-width: 24px;
+  }
+
+  .step-dot,
+  .step-dot.active {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    transform: none;
+  }
+
+  .step-slide-inner {
+    padding: 20px 14px 22px;
+  }
+
+  .step-img {
+    max-height: min(48vh, 420px);
+    width: auto;
+    max-width: 100%;
+  }
+
+  .steps-btn {
+    min-height: 48px;
+    padding-inline: 16px;
+  }
+
+  .mobile-download-dock {
+    position: fixed;
+    left: auto;
+    right: max(12px, env(safe-area-inset-right));
+    max-width: calc(100% - 24px);
+    bottom: max(10px, env(safe-area-inset-bottom));
+    z-index: 190;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 48px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    background: #087fe8;
+    color: var(--white);
+    box-shadow: 0 6px 8px rgba(8, 72, 132, 0.24);
+    font-size: 0.86rem;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  footer {
+    padding-bottom: calc(92px + env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 380px) {
+  .nav-brand-logo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .nav-brand-name {
+    font-size: 1rem;
+  }
+
+  .nav-brand-sub {
+    letter-spacing: 1.5px;
+  }
+
+  .hero-inner {
+    padding-inline: 16px;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-features {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-height: 520px) and (orientation: landscape) and (max-width: 900px) {
+  #navbar {
+    height: 60px;
+  }
+
+  .mobile-menu,
+  .mobile-menu-backdrop {
+    top: 60px;
+  }
+
+  .mobile-menu {
+    max-height: calc(100dvh - 60px);
+  }
+
+  #hero {
+    padding-top: 60px;
+  }
+
+  .hero-banner-bg {
+    height: 180px;
+  }
+}
+
+@media (pointer: coarse) {
+  .hamburger,
+  .nav-links a,
+  .mobile-menu a,
+  .btn-download,
+  .btn-glow,
+  .btn-cta-outline,
+  .steps-btn,
+  .step-dot {
+    min-height: 44px;
+  }
+}
+
+@media (hover: none) {
+  .feature-card:hover,
+  .problem-card:hover,
+  .testimonial-card:hover,
+  .feat-item:hover,
+  .float-card:hover,
+  .mol-chip:hover {
+    transform: none;
+  }
+}
+
+/* Reveal motion enhances visible content; it never gates rendering. */
+.reveal,
+.reveal-left {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal.visible {
+  animation: responsiveReveal 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes responsiveReveal {
+  from {
+    opacity: 0.72;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

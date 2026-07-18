@@ -1,14 +1,26 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SectionHeading } from "../../../components/common/SectionHeading";
 import { steps } from "../data/content";
 
 export function HowItWorksSection() {
   const [currentStep, setCurrentStep] = useState(0);
   const touchStartX = useRef(0);
+  const progressRef = useRef<HTMLDivElement>(null);
   const total = steps.length;
 
   const goTo = (index: number) => setCurrentStep((index + total) % total);
+
+  useEffect(() => {
+    const progress = progressRef.current;
+    const activeTab = progress?.querySelector<HTMLElement>(
+      '[role="tab"][aria-selected="true"]',
+    );
+    if (!progress || !activeTab) return;
+
+    const centeredLeft = activeTab.offsetLeft - (progress.clientWidth - activeTab.offsetWidth) / 2;
+    progress.scrollTo({ left: Math.max(0, centeredLeft), behavior: "smooth" });
+  }, [currentStep]);
 
   return (
     <section id="how" aria-labelledby="how-heading">
@@ -16,7 +28,7 @@ export function HowItWorksSection() {
         <SectionHeading
           id="how-heading"
           label="Hướng dẫn sử dụng"
-          title={<>Quy trình sử dụng <span>7 bước</span></>}
+          title={<>Quy trình sử dụng{" "}<span>7 bước</span></>}
           description="Từ tải ứng dụng đến ôn tập — trải nghiệm đầy đủ LABEDU AR-Laboratory."
         />
         <div
@@ -25,9 +37,11 @@ export function HowItWorksSection() {
           onKeyDown={(event) => {
             if (event.key === "ArrowRight") goTo(currentStep + 1);
             if (event.key === "ArrowLeft") goTo(currentStep - 1);
+            if (event.key === "Home") goTo(0);
+            if (event.key === "End") goTo(total - 1);
           }}
         >
-          <div className="steps-progress" role="tablist" aria-label="Các bước sử dụng">
+          <div className="steps-progress" role="tablist" aria-label="Các bước sử dụng" ref={progressRef}>
             {steps.map((step, index) => (
               <div className="step-progress-item" key={step.title}>
                 <button
@@ -36,6 +50,7 @@ export function HowItWorksSection() {
                   className={`step-dot${index === currentStep ? " active" : ""}${index < currentStep ? " done" : ""}`}
                   aria-selected={index === currentStep}
                   aria-controls={`step-panel-${index}`}
+                  aria-label={`Bước ${index + 1}: ${step.title}`}
                   onClick={() => goTo(index)}
                 >
                   {index + 1}

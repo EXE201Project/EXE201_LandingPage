@@ -6,12 +6,15 @@ import { DOWNLOAD_URL, navigation } from "../../features/landing/data/content";
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [showMobileCta, setShowMobileCta] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 40);
+      setShowMobileCta(window.scrollY > Math.max(420, window.innerHeight * 0.55));
       setMenuOpen(false);
     };
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -70,6 +73,12 @@ export function Header() {
           Download APK
         </a>
       </div>
+      {showMobileCta && !menuOpen && (
+        <a href={DOWNLOAD_URL} target="_blank" rel="noreferrer" className="mobile-download-dock">
+          <Download size={18} aria-hidden="true" />
+          Tải LABEDU
+        </a>
+      )}
     </>
   );
 }
