@@ -12,7 +12,7 @@ export function Footer() {
           </a>
         ))}
         <a href={DOWNLOAD_URL} target="_blank" rel="noreferrer">
-          Download
+          Tải ứng dụng
         </a>
       </nav>
       <div className="footer-copy">© 2026 LABEDU – EXE201 FPT University</div>

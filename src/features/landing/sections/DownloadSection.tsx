@@ -7,24 +7,26 @@ export function DownloadSection() {
       <div id="cta">
         <div className="section-wrap">
           <div className="cta-box reveal" data-reveal>
-            <span className="cta-icon" aria-hidden="true"><FlaskConical size={44} /></span>
-            <h2 className="cta-title" id="cta-heading">Sẵn sàng trải nghiệm<br /><span>Hóa học trong AR?</span></h2>
-            <p className="cta-desc">
-              Tải ứng dụng miễn phí, không cần đăng ký hay thiết bị đặc biệt.<br />
-              Chỉ cần điện thoại Android và Flash Card LABEDU.
-            </p>
+            <span className="cta-icon" aria-hidden="true"><FlaskConical size={40} /></span>
+            <div className="cta-copy-block">
+              <h2 className="cta-title" id="cta-heading">Sẵn sàng trải nghiệm <span>Hóa học trong AR?</span></h2>
+              <p className="cta-desc">
+                Tải LABEDU và bắt đầu với điện thoại Android cùng bộ Flash Card của bạn.
+              </p>
+              <ul className="cta-note" aria-label="Yêu cầu ứng dụng">
+                <li><Check size={15} aria-hidden="true" /> Miễn phí</li>
+                <li><Check size={15} aria-hidden="true" /> Android 7.0+</li>
+                <li><Check size={15} aria-hidden="true" /> Cần quyền camera</li>
+              </ul>
+            </div>
             <div className="cta-btns">
               <a href={DOWNLOAD_URL} target="_blank" rel="noreferrer" className="btn-glow">
-                <ArrowRight size={19} aria-hidden="true" /> Start Testing
+                <Download size={19} aria-hidden="true" /> Tải ứng dụng
               </a>
-              <a href={DOWNLOAD_URL} target="_blank" rel="noreferrer" className="btn-cta-outline">
-                <Download size={19} aria-hidden="true" /> Download APK
+              <a href="#how" className="btn-cta-outline">
+                Xem cách hoạt động <ArrowRight size={19} aria-hidden="true" />
               </a>
             </div>
-            <p className="cta-tagline">Trải nghiệm học Hóa học tương tác ngay hôm nay.</p>
-            <ul className="cta-note" aria-label="Thông tin ứng dụng">
-              <li><Check size={15} /> Miễn phí</li><li><Check size={15} /> Android</li><li><Check size={15} /> Không cần đăng ký</li>
-            </ul>
           </div>
         </div>
       </div>

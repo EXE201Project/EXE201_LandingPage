@@ -3,9 +3,9 @@ import type { ImageContentItem, NavigationItem, StepItem, Testimonial } from "..
 export const DOWNLOAD_URL = "https://play.google.com/apps/internaltest/4701604803919893584";
 
 export const navigation: NavigationItem[] = [
-  { label: "Tính năng", href: "#features" },
-  { label: "Cách dùng", href: "#how" },
-  { label: "Phân tử", href: "#molecules" },
+  { label: "Trải nghiệm", href: "#features" },
+  { label: "Cách sử dụng", href: "#how" },
+  { label: "Bộ Flash Card", href: "#molecules" },
 ];
 
 export const footerLinks: NavigationItem[] = [
@@ -17,61 +17,61 @@ export const problems: ImageContentItem[] = [
   {
     title: "Khó hình dung phân tử 3D",
     description:
-      "Cấu trúc phân tử, liên kết và góc liên kết khó được mô tả đầy đủ trên giấy, khiến học sinh khó hình dung không gian thực.",
-    image: "/assets/learning/issue-3d.png",
-    imageAlt: "Mô hình minh họa cấu trúc phân tử 3D",
+      "Từ hình vẽ phẳng trên sách, học sinh khó hình dung cấu trúc, góc liên kết và cách phân tử tồn tại trong không gian.",
+    image: "/assets/learning/real/issue-visualization.jpg",
+    imageAlt: "Học sinh quan sát thí nghiệm Hóa học trong phòng lab",
   },
   {
     title: "Thiếu cơ hội thực hành",
     description:
-      "Phòng thí nghiệm không phải lúc nào cũng sẵn sàng, chi phí cao và tiềm ẩn rủi ro an toàn khi thực hành.",
-    image: "/assets/learning/issue-practice.png",
-    imageAlt: "Học sinh thực hành trong phòng thí nghiệm",
+      "Không phải trường học nào cũng có đủ phòng lab, dụng cụ và thời gian để mỗi học sinh tự tay thực hành.",
+    image: "/assets/learning/real/issue-practice.jpg",
+    imageAlt: "Hai học sinh cùng thực hành với dụng cụ phòng lab",
   },
   {
     title: "Học từ sách dễ nhàm chán",
     description:
-      "Phương pháp học một chiều khiến học sinh mất hứng thú, khó duy trì sự tập trung trong thời gian dài.",
-    image: "/assets/learning/issue-book.png",
-    imageAlt: "Sách giáo khoa Hóa học",
+      "Khi bài học chỉ có chữ và công thức, học sinh dễ mất tập trung và khó liên hệ kiến thức với hiện tượng thật.",
+    image: "/assets/learning/real/issue-theory.jpg",
+    imageAlt: "Học sinh đọc sách và ghi chép trong lớp học",
   },
   {
     title: "Khó ghi nhớ khái niệm",
     description:
-      "Công thức, phản ứng và khái niệm trừu tượng khó được ghi nhớ lâu dài nếu thiếu trải nghiệm trực quan.",
-    image: "/assets/learning/issue-concepts.png",
-    imageAlt: "Các khái niệm Hóa học trừu tượng",
+      "Công thức và phản ứng khó ở lại lâu nếu người học chưa được quan sát, trao đổi và tự mình thử nghiệm.",
+    image: "/assets/learning/real/issue-memory.jpg",
+    imageAlt: "Nhóm học sinh trao đổi trong một tiết học Hóa học",
   },
 ];
 
 export const benefits: ImageContentItem[] = [
   {
-    title: "Học Hóa học qua mô hình 3D",
+    title: "Quan sát phân tử trong không gian",
     description:
-      "Nhìn thấy cấu trúc phân tử trong không gian thực qua AR — xoay, phóng to và quan sát từ mọi góc độ, giúp hiểu sâu hơn hình vẽ 2D.",
-    image: "/assets/learning/benefit-3d.png",
-    imageAlt: "Mô hình phân tử 3D trong ứng dụng LABEDU",
+      "Quét Flash Card để mở mô hình AR, sau đó xoay và phóng to cấu trúc ngay trên màn hình.",
+    image: "/assets/features/ar-molecule.jpg",
+    imageAlt: "Màn hình xem phân tử AR thật trong LABEDU",
   },
   {
-    title: "Thí nghiệm ảo an toàn",
+    title: "Thử phản ứng không cần phòng lab",
     description:
-      "Thực hành không giới hạn trong môi trường ảo, không lo hóa chất nguy hiểm hay thiếu dụng cụ phòng lab.",
-    image: "/assets/learning/benefit-safety.png",
-    imageAlt: "Môi trường thí nghiệm Hóa học an toàn",
+      "Thực hiện từng bước trong môi trường ảo và quan sát kết quả mà không tiếp xúc với hóa chất.",
+    image: "/assets/features/virtual-lab.jpg",
+    imageAlt: "Màn hình thí nghiệm ảo thật trong LABEDU",
   },
   {
-    title: "Flash Card tương tác",
+    title: "Bắt đầu từ Flash Card thật",
     description:
-      "Học chủ động bằng cách quét thẻ — mỗi Flash Card kích hoạt nội dung AR, biến việc ôn tập thành trải nghiệm sống động.",
-    image: "/assets/learning/benefit-flashcard.png",
-    imageAlt: "Flash Card tương tác của LABEDU",
+      "Mỗi thẻ nối một chất Hóa học với nội dung AR tương ứng, giúp việc học có điểm bắt đầu rõ ràng.",
+    image: "/assets/features/flashcard.jpg",
+    imageAlt: "Bộ Flash Card thật của LABEDU",
   },
   {
-    title: "Tăng hứng thú học tập",
+    title: "Ôn lại ngay sau trải nghiệm",
     description:
-      "Gắn kết hơn với môn Hóa nhờ công nghệ AR — học sinh tích cực khám phá thay vì tiếp nhận thụ động từ sách vở.",
-    image: "/assets/learning/benefit-engagement.png",
-    imageAlt: "Học sinh hứng thú khám phá Hóa học",
+      "Làm Quiz ngắn để kiểm tra phần vừa học và biết nội dung nào cần xem lại.",
+    image: "/assets/features/quiz.jpg",
+    imageAlt: "Màn hình Quiz thật trong LABEDU",
   },
 ];
 
@@ -151,3 +151,23 @@ export const testimonials: Testimonial[] = [
     meta: "Đánh giá dự án Capstone – FPT University",
   },
 ];
+
+export const flashCards = [
+  { formula: "Al", name: "Nhôm", front: "/assets/flashcards/front-al.jpg", back: "/assets/flashcards/back-al.jpg" },
+  { formula: "BaCl₂", name: "Bari clorua", front: "/assets/flashcards/front-bacl2.jpg", back: "/assets/flashcards/back-bacl2.jpg" },
+  { formula: "C", name: "Cacbon", front: "/assets/flashcards/front-cacbon.jpg", back: "/assets/flashcards/back-cacbon.jpg" },
+  { formula: "Ca", name: "Canxi", front: "/assets/flashcards/front-ca.jpg", back: "/assets/flashcards/back-ca.jpg" },
+  { formula: "Cu", name: "Đồng", front: "/assets/flashcards/front-cu.jpg", back: "/assets/flashcards/back-cu.jpg" },
+  { formula: "Fe", name: "Sắt", front: "/assets/flashcards/front-fe.jpg", back: "/assets/flashcards/back-fe.jpg" },
+  { formula: "H₂O", name: "Nước", front: "/assets/flashcards/front-h2o.jpg", back: "/assets/flashcards/back-h2o.jpg" },
+  { formula: "HCl", name: "Axit clohidric", front: "/assets/flashcards/front-hcl.jpg", back: "/assets/flashcards/back-hcl.jpg" },
+  { formula: "K", name: "Kali", front: "/assets/flashcards/front-k.jpg", back: "/assets/flashcards/back-k.jpg" },
+  { formula: "KClO₃", name: "Kali clorat", front: "/assets/flashcards/front-kclo3.jpg", back: "/assets/flashcards/back-kclo3.jpg" },
+  { formula: "KMnO₄", name: "Kali pemanganat", front: "/assets/flashcards/front-kmno4.jpg", back: "/assets/flashcards/back-kmno4.jpg" },
+  { formula: "Mg", name: "Magie", front: "/assets/flashcards/front-mg.jpg", back: "/assets/flashcards/back-mg.jpg" },
+  { formula: "Na", name: "Natri", front: "/assets/flashcards/front-na.jpg", back: "/assets/flashcards/back-na.jpg" },
+  { formula: "Na₂SO₄", name: "Natri sunfat", front: "/assets/flashcards/front-na2so4.jpg", back: "/assets/flashcards/back-na2so4.jpg" },
+  { formula: "NaOH", name: "Natri hiđroxit", front: "/assets/flashcards/front-naoh.jpg", back: "/assets/flashcards/back-naoh.jpg" },
+  { formula: "S", name: "Lưu huỳnh", front: "/assets/flashcards/front-s.jpg", back: "/assets/flashcards/back-s.jpg" },
+  { formula: "Zn", name: "Kẽm", front: "/assets/flashcards/front-zn.jpg", back: "/assets/flashcards/back-zn.jpg" },
+] as const;

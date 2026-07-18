@@ -6,13 +6,10 @@ import { DOWNLOAD_URL, navigation } from "../../features/landing/data/content";
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [showMobileCta, setShowMobileCta] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 40);
-      setShowMobileCta(window.scrollY > Math.max(420, window.innerHeight * 0.55));
-      setMenuOpen(false);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -39,7 +36,7 @@ export function Header() {
           <li>
             <a href={DOWNLOAD_URL} target="_blank" rel="noreferrer" className="nav-cta">
               <Download size={16} aria-hidden="true" />
-              Download APK
+              Tải ứng dụng
             </a>
           </li>
         </ul>
@@ -70,15 +67,9 @@ export function Header() {
         </div>
         <a href={DOWNLOAD_URL} target="_blank" rel="noreferrer" className="mobile-cta" onClick={closeMenu}>
           <Download size={18} aria-hidden="true" />
-          Download APK
+          Tải ứng dụng
         </a>
       </div>
-      {showMobileCta && !menuOpen && (
-        <a href={DOWNLOAD_URL} target="_blank" rel="noreferrer" className="mobile-download-dock">
-          <Download size={18} aria-hidden="true" />
-          Tải LABEDU
-        </a>
-      )}
     </>
   );
 }

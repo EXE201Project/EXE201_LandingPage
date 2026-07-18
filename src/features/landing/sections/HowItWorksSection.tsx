@@ -3,6 +3,16 @@ import { useEffect, useRef, useState } from "react";
 import { SectionHeading } from "../../../components/common/SectionHeading";
 import { steps } from "../data/content";
 
+const stepDescriptions = [
+  "Cài đặt phiên bản LABEDU dành cho thiết bị Android.",
+  "Mở ứng dụng và sẵn sàng bắt đầu hành trình học tập.",
+  "Đưa camera tới Flash Card để nhận diện nội dung Hóa học.",
+  "Quan sát và tương tác với mô hình phân tử trong không gian.",
+  "Theo dõi phản ứng và thao tác với thí nghiệm mô phỏng.",
+  "Trả lời câu hỏi để củng cố kiến thức vừa trải nghiệm.",
+  "Xem lại kết quả và xác định nội dung cần ôn tập.",
+] as const;
+
 export function HowItWorksSection() {
   const [currentStep, setCurrentStep] = useState(0);
   const touchStartX = useRef(0);
@@ -22,17 +32,25 @@ export function HowItWorksSection() {
     progress.scrollTo({ left: Math.max(0, centeredLeft), behavior: "smooth" });
   }, [currentStep]);
 
+  const getPosition = (index: number) => {
+    if (index === currentStep) return "is-active";
+    if (index === (currentStep - 1 + total) % total) return "is-prev";
+    if (index === (currentStep + 1) % total) return "is-next";
+    return "is-hidden";
+  };
+
   return (
     <section id="how" aria-labelledby="how-heading">
       <div className="section-wrap">
         <SectionHeading
           id="how-heading"
           label="Hướng dẫn sử dụng"
-          title={<>Quy trình sử dụng{" "}<span>7 bước</span></>}
-          description="Từ tải ứng dụng đến ôn tập — trải nghiệm đầy đủ LABEDU AR-Laboratory."
+          title={<>Hành trình trải nghiệm <span>LABEDU</span></>}
+          description="Từ tải ứng dụng đến theo dõi tiến độ — giữ nguyên 7 bước, nhưng dễ quan sát và tương tác hơn."
         />
+
         <div
-          className="steps-slider reveal"
+          className="steps-slider journey-stage reveal"
           data-reveal
           onKeyDown={(event) => {
             if (event.key === "ArrowRight") goTo(currentStep + 1);
@@ -41,7 +59,7 @@ export function HowItWorksSection() {
             if (event.key === "End") goTo(total - 1);
           }}
         >
-          <div className="steps-progress" role="tablist" aria-label="Các bước sử dụng" ref={progressRef}>
+          <div className="steps-progress journey-progress" role="tablist" aria-label="Các bước sử dụng" ref={progressRef}>
             {steps.map((step, index) => (
               <div className="step-progress-item" key={step.title}>
                 <button
@@ -53,39 +71,67 @@ export function HowItWorksSection() {
                   aria-label={`Bước ${index + 1}: ${step.title}`}
                   onClick={() => goTo(index)}
                 >
-                  {index + 1}
+                  {String(index + 1).padStart(2, "0")}
                 </button>
-                {index < total - 1 && <div className={`steps-progress-line${index < currentStep ? " is-done" : ""}`}><div className="steps-progress-line-fill" /></div>}
+                <span className="step-progress-label">{step.title}</span>
+                {index < total - 1 && (
+                  <div className={`steps-progress-line${index < currentStep ? " is-done" : ""}`}>
+                    <div className="steps-progress-line-fill" />
+                  </div>
+                )}
               </div>
             ))}
           </div>
+
           <div
-            className="steps-viewport"
+            className="journey-viewport"
             onTouchStart={(event) => { touchStartX.current = event.changedTouches[0].screenX; }}
             onTouchEnd={(event) => {
               const delta = touchStartX.current - event.changedTouches[0].screenX;
               if (Math.abs(delta) > 50) goTo(currentStep + (delta > 0 ? 1 : -1));
             }}
           >
-            <div className="steps-track">
-              {steps.map((step, index) => (
-                <div
-                  className={`step-slide${index === currentStep ? " is-active" : ""}`}
+            {steps.map((step, index) => {
+              const position = getPosition(index);
+              if (position === "is-hidden") return null;
+
+              if (position !== "is-active") {
+                return (
+                  <button
+                    type="button"
+                    className={`journey-preview ${position}`}
+                    onClick={() => goTo(index)}
+                    aria-label={`Chuyển đến bước ${index + 1}: ${step.title}`}
+                    key={step.title}
+                  >
+                    <img src={step.image} alt="" loading="lazy" />
+                    <span>{step.title}</span>
+                  </button>
+                );
+              }
+
+              return (
+                <article
+                  className="journey-active"
                   id={`step-panel-${index}`}
                   role="tabpanel"
-                  aria-hidden={index !== currentStep}
+                  aria-labelledby={`step-tab-${index}`}
                   key={step.title}
                 >
-                  <div className="step-slide-inner">
-                    <img src={step.image} alt={step.imageAlt} className="step-img" loading="lazy" />
-                    <div className="step-label">Bước {String(index + 1).padStart(2, "0")}</div>
-                    <div className="step-title">{step.title}</div>
+                  <div className="journey-active-copy">
+                    <span>Bước {String(index + 1).padStart(2, "0")}</span>
+                    <h3>{step.title}</h3>
+                    <p>{stepDescriptions[index]}</p>
                   </div>
-                </div>
-              ))}
-            </div>
+                  <div className="journey-active-media">
+                    <img src={step.image} alt={step.imageAlt} />
+                  </div>
+                </article>
+              );
+            })}
           </div>
-          <div className="steps-controls">
+
+          <div className="steps-controls journey-controls">
             <button type="button" className="steps-btn steps-btn-prev" onClick={() => goTo(currentStep - 1)}>
               <ArrowLeft size={17} aria-hidden="true" /> Trước
             </button>

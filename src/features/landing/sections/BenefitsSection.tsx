@@ -1,4 +1,4 @@
-﻿import { SectionHeading } from "../../../components/common/SectionHeading";
+import { SectionHeading } from "../../../components/common/SectionHeading";
 import { benefits } from "../data/content";
 
 export function BenefitsSection() {
@@ -8,8 +8,8 @@ export function BenefitsSection() {
         <SectionHeading
           id="benefits-heading"
           label="Lợi ích"
-          title={<>LABEDU giải quyết vấn đề <span>như thế nào?</span></>}
-          description="Không chỉ là tính năng — LABEDU mang lại lợi ích thực sự cho người học."
+          title={<>LABEDU giúp học Hóa <span>dễ hơn ra sao?</span></>}
+          description="Quét thẻ, xem mô hình, thử phản ứng và ôn lại ngay trong một hành trình."
         />
         <div className="features-grid">
           {benefits.map((item, index) => (
