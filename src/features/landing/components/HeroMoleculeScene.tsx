@@ -262,14 +262,14 @@ export function HeroMoleculeScene() {
         opacity: 0.72,
       });
       const deliveryTubeMaterial = new THREE.MeshBasicMaterial({
-        color: 0xe9fbff,
+        color: 0xf8fafc,
         transparent: true,
         opacity: 1,
         depthTest: false,
         depthWrite: false,
       });
       const deliveryTubeOutlineMaterial = new THREE.MeshBasicMaterial({
-        color: 0x0a2c62,
+        color: 0x334155,
         transparent: true,
         opacity: 1,
         depthTest: false,
