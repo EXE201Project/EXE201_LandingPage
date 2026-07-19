@@ -6386,3 +6386,218 @@ body.menu-open {
     transition: none;
   }
 }
+/* Hero thermal-decomposition control and reaction feedback */
+.hero-webgl-help {
+  top: 70px;
+  right: 14px;
+  bottom: auto;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  border-radius: 11px;
+}
+
+.hero-reaction-equation {
+  position: absolute;
+  z-index: 3;
+  top: 16px;
+  left: 16px;
+  width: min(320px, calc(100% - 190px));
+  padding: 12px 14px 11px;
+  border-radius: 12px;
+  color: var(--navy);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 6px 8px rgba(10, 44, 98, 0.14);
+  pointer-events: none;
+  animation: hero-reaction-enter 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-reaction-equation > span {
+  display: block;
+  margin-bottom: 4px;
+  color: #9a3412;
+  font-size: 0.62rem;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.hero-reaction-equation strong {
+  display: block;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  white-space: nowrap;
+}
+
+.hero-reaction-equation strong b {
+  margin-inline: 4px;
+  color: var(--blue);
+}
+
+.hero-reaction-equation sub {
+  font-size: 0.72em;
+}
+
+.hero-reaction-equation small {
+  display: block;
+  margin-top: 4px;
+  color: #456889;
+  font-size: 0.66rem;
+  font-weight: 650;
+}
+
+.hero-reaction-equation.is-complete > span {
+  color: #0b6b50;
+}
+
+.hero-reaction-progress {
+  height: 3px;
+  margin-top: 9px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #dbeaf6;
+}
+
+.hero-reaction-progress span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: #d95d0b;
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: hero-reaction-progress 4.2s linear forwards;
+}
+
+.hero-reaction-equation.is-complete .hero-reaction-progress span {
+  background: #0b6b50;
+  transform: scaleX(1);
+  animation: none;
+}
+
+.hero-webgl-reaction {
+  position: absolute;
+  z-index: 4;
+  right: 16px;
+  bottom: 16px;
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 11px;
+  color: #ffffff;
+  background: var(--navy);
+  box-shadow: 0 6px 8px rgba(10, 44, 98, 0.18);
+  font: 760 0.74rem/1.2 "Plus Jakarta Sans", "Inter", sans-serif;
+  cursor: pointer;
+  transition: background-color 180ms ease, transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-webgl-reaction svg {
+  color: #ffad5c;
+}
+
+.hero-webgl-reaction:hover:not(:disabled) {
+  background: #063d7a;
+  transform: translateY(-2px);
+}
+
+.hero-webgl-reaction:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.hero-webgl-reaction:focus-visible {
+  outline: 3px solid rgba(255, 154, 61, 0.58);
+  outline-offset: 3px;
+}
+
+.hero-webgl-reaction.is-running {
+  background: #9a3412;
+  cursor: wait;
+}
+
+.hero-webgl-reaction.is-running svg {
+  color: #ffffff;
+  animation: hero-reaction-flame 700ms ease-in-out infinite alternate;
+}
+
+.hero-webgl-reaction.is-complete {
+  background: #0b6b50;
+}
+
+.hero-webgl-reaction.is-complete svg {
+  color: #ffffff;
+}
+
+.hero-webgl-reaction:disabled {
+  opacity: 1;
+}
+
+@keyframes hero-reaction-enter {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes hero-reaction-progress {
+  to { transform: scaleX(1); }
+}
+
+@keyframes hero-reaction-flame {
+  from { transform: scale(0.9); opacity: 0.72; }
+  to { transform: scale(1.08); opacity: 1; }
+}
+
+@media (max-width: 699px) {
+  .hero-reaction-equation {
+    top: 62px;
+    left: 10px;
+    width: calc(100% - 20px);
+    padding: 10px 12px;
+  }
+
+  .hero-reaction-equation strong {
+    font-size: 0.68rem;
+  }
+
+  .hero-reaction-equation small {
+    font-size: 0.62rem;
+  }
+
+  .hero-webgl-reaction {
+    right: 10px;
+    bottom: 10px;
+    padding: 9px 11px;
+    font-size: 0.68rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-reaction-equation,
+  .hero-reaction-progress span,
+  .hero-webgl-reaction.is-running svg {
+    animation: none;
+  }
+
+  .hero-reaction-progress span {
+    transform: scaleX(1);
+  }
+}
+/* Keep the reaction apparatus visible on compact hero stages */
+@media (max-width: 699px) {
+  .hero-reaction-equation {
+    top: 10px;
+    width: calc(100% - 74px);
+    padding: 8px 10px;
+  }
+
+  .hero-reaction-equation small {
+    display: none;
+  }
+
+  .hero-reaction-progress {
+    margin-top: 6px;
+  }
+}
