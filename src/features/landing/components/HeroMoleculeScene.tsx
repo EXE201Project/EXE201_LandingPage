@@ -417,29 +417,61 @@ export function HeroMoleculeScene() {
       const productDust = new THREE.Points(productDustGeometry, productDustMaterial);
       tubeGroup.add(productDust);
 
-      const powderCoreGeometry = new THREE.SphereGeometry(0.22, 28, 20);
-      const permanganateCoreMaterial = new THREE.MeshPhysicalMaterial({
-        color: 0x5f147f,
-        emissive: 0x21002f,
-        emissiveIntensity: 0.18,
+      const granuleCount = 150;
+      const granuleGeometry = new THREE.DodecahedronGeometry(0.034, 0);
+      const reactantGranuleMaterial = new THREE.MeshStandardMaterial({
+        color: 0xffffff,
         transparent: true,
-        opacity: 0.88,
-        roughness: 0.82,
+        opacity: 0.96,
+        roughness: 0.78,
+        metalness: 0.02,
+        vertexColors: true,
       });
-      const productCoreMaterial = new THREE.MeshStandardMaterial({
-        color: 0x263a2f,
+      const productGranuleMaterial = new THREE.MeshStandardMaterial({
+        color: 0xffffff,
         transparent: true,
         opacity: 0,
-        roughness: 0.94,
+        roughness: 0.9,
+        metalness: 0.01,
+        vertexColors: true,
       });
-      const permanganateCore = new THREE.Mesh(powderCoreGeometry, permanganateCoreMaterial);
-      permanganateCore.position.set(0.1, 0.78, 0);
-      permanganateCore.scale.set(0.72, 1.18, 0.84);
-      tubeGroup.add(permanganateCore);
-      const productCore = new THREE.Mesh(powderCoreGeometry, productCoreMaterial);
-      productCore.position.copy(permanganateCore.position);
-      productCore.scale.copy(permanganateCore.scale);
-      tubeGroup.add(productCore);
+      const reactantGranules = new THREE.InstancedMesh(granuleGeometry, reactantGranuleMaterial, granuleCount);
+      const productGranules = new THREE.InstancedMesh(granuleGeometry, productGranuleMaterial, granuleCount);
+      const granuleTransform = new THREE.Object3D();
+      const reactantColors = [new THREE.Color(0x3c0c52), new THREE.Color(0x5d127d), new THREE.Color(0x7a2498)];
+      const productColors = [new THREE.Color(0x26312b), new THREE.Color(0x19201c), new THREE.Color(0x395e48)];
+      for (let index = 0; index < granuleCount; index += 1) {
+        const spread = Math.sqrt(pseudoRandom(index + 2201));
+        const angle = pseudoRandom(index + 2501) * Math.PI * 2;
+        granuleTransform.position.set(
+          0.1 + Math.cos(angle) * spread * 0.12,
+          0.62 + pseudoRandom(index + 2801) * 0.3,
+          Math.sin(angle) * spread * 0.14,
+        );
+        granuleTransform.rotation.set(
+          pseudoRandom(index + 3101) * Math.PI,
+          pseudoRandom(index + 3401) * Math.PI,
+          pseudoRandom(index + 3701) * Math.PI,
+        );
+        const granuleScale = 0.5 + pseudoRandom(index + 4001) * 0.72;
+        granuleTransform.scale.set(
+          granuleScale,
+          granuleScale * (0.72 + pseudoRandom(index + 4301) * 0.5),
+          granuleScale * (0.78 + pseudoRandom(index + 4601) * 0.4),
+        );
+        granuleTransform.updateMatrix();
+        reactantGranules.setMatrixAt(index, granuleTransform.matrix);
+        productGranules.setMatrixAt(index, granuleTransform.matrix);
+        reactantGranules.setColorAt(index, reactantColors[index % reactantColors.length]);
+        productGranules.setColorAt(index, productColors[index % productColors.length]);
+      }
+      reactantGranules.instanceMatrix.needsUpdate = true;
+      productGranules.instanceMatrix.needsUpdate = true;
+      if (reactantGranules.instanceColor) reactantGranules.instanceColor.needsUpdate = true;
+      if (productGranules.instanceColor) productGranules.instanceColor.needsUpdate = true;
+      reactantGranules.castShadow = true;
+      productGranules.castShadow = true;
+      tubeGroup.add(reactantGranules, productGranules);
       const reactionCrystals = crystals;
 
       const tubeLocalToApparatus = (localY: number) => new THREE.Vector3(0, localY, 0)
@@ -682,10 +714,10 @@ export function HeroMoleculeScene() {
         collectedGas.position.y = 0.76;
         troughWaterSurface.position.y = -0.135;
         waterParticles.position.y = 0;
-        permanganateDustMaterial.opacity = 0.46;
+        permanganateDustMaterial.opacity = 0.28;
         productDustMaterial.opacity = 0;
-        permanganateCoreMaterial.opacity = 0.88;
-        productCoreMaterial.opacity = 0;
+        reactantGranuleMaterial.opacity = 0.96;
+        productGranuleMaterial.opacity = 0;
       };
 
       startReactionRef.current = () => {
@@ -762,10 +794,10 @@ export function HeroMoleculeScene() {
 
         if (reactionStartedAt !== null) {
           const conversion = THREE.MathUtils.smoothstep(reactionProgress, 0.18, 0.82);
-          permanganateDustMaterial.opacity = Math.max(0.46 - conversion * 0.54, 0);
-          productDustMaterial.opacity = Math.min(conversion * 0.5, 0.46);
-          permanganateCoreMaterial.opacity = Math.max(0.88 - conversion, 0);
-          productCoreMaterial.opacity = Math.min(conversion * 0.92, 0.88);
+          permanganateDustMaterial.opacity = Math.max(0.28 - conversion * 0.34, 0);
+          productDustMaterial.opacity = Math.min(conversion * 0.3, 0.28);
+          reactantGranuleMaterial.opacity = Math.max(0.96 - conversion * 1.12, 0);
+          productGranuleMaterial.opacity = Math.min(conversion * 1.04, 0.96);
           permanganateDust.rotation.y += reducedMotion ? 0 : 0.002;
           productDust.rotation.y -= reducedMotion ? 0 : 0.0015;
           const convertedCount = Math.floor(conversion * reactionCrystals.length);
