@@ -6475,6 +6475,44 @@ body.menu-open {
   animation: none;
 }
 
+.hero-webgl-return {
+  position: absolute;
+  z-index: 4;
+  right: 16px;
+  bottom: 68px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 10px 14px;
+  border: 1px solid rgba(14, 82, 132, 0.2);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.94);
+  color: #0a2c62;
+  box-shadow: 0 8px 20px rgba(10, 44, 98, 0.14);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 750;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-webgl-return:hover {
+  border-color: rgba(8, 127, 232, 0.48);
+  box-shadow: 0 10px 24px rgba(10, 44, 98, 0.2);
+  transform: translateY(-2px);
+}
+
+.hero-webgl-return:active {
+  transform: translateY(0);
+}
+
+.hero-webgl-return:focus-visible {
+  outline: 3px solid rgba(8, 127, 232, 0.42);
+  outline-offset: 3px;
+}
+
 .hero-webgl-reaction {
   position: absolute;
   z-index: 4;
@@ -6564,6 +6602,14 @@ body.menu-open {
 
   .hero-reaction-equation small {
     font-size: 0.62rem;
+  }
+
+  .hero-webgl-return {
+    right: 10px;
+    bottom: 60px;
+    min-height: 36px;
+    padding: 8px 10px;
+    font-size: 0.66rem;
   }
 
   .hero-webgl-reaction {

@@ -1,4 +1,4 @@
-import { Flame, RefreshCw, Rotate3d, RotateCcw, ScanLine, ZoomIn } from "lucide-react";
+import { ArrowLeft, Flame, RefreshCw, Rotate3d, RotateCcw, ScanLine, ZoomIn } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import type { Material, Mesh, Object3D, WebGLRenderer } from "three";
 
@@ -8,6 +8,7 @@ export function HeroMoleculeScene() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const resetViewRef = useRef<() => void>(() => undefined);
   const startReactionRef = useRef<() => void>(() => undefined);
+  const returnToModelRef = useRef<() => void>(() => undefined);
   const [ready, setReady] = useState(false);
   const [reactionStatus, setReactionStatus] = useState<ReactionStatus>("idle");
 
@@ -176,12 +177,12 @@ export function HeroMoleculeScene() {
         heatMaterial,
       );
       heatRing.rotation.x = Math.PI / 2;
-      heatRing.position.set(1.45, -0.88, 0.08);
+      heatRing.position.set(1.7, -0.88, 0.08);
       heatRing.visible = false;
       product.add(heatRing);
 
       const heatLight = new THREE.PointLight(0xff6b1a, 0, 4.2);
-      heatLight.position.set(1.45, -0.18, 0.08);
+      heatLight.position.set(1.7, -0.18, 0.08);
       product.add(heatLight);
 
       const gasAtomGeometry = new THREE.SphereGeometry(0.105, 20, 20);
@@ -262,14 +263,7 @@ export function HeroMoleculeScene() {
         opacity: 0.72,
       });
       const deliveryTubeMaterial = new THREE.MeshBasicMaterial({
-        color: 0xf8fafc,
-        transparent: true,
-        opacity: 1,
-        depthTest: false,
-        depthWrite: false,
-      });
-      const deliveryTubeOutlineMaterial = new THREE.MeshBasicMaterial({
-        color: 0x334155,
+        color: 0xe2e8f0,
         transparent: true,
         opacity: 1,
         depthTest: false,
@@ -355,7 +349,7 @@ export function HeroMoleculeScene() {
 
       const tubeGroup = new THREE.Group();
       tubeGroup.position.set(0.82, 0.36, 0.08);
-      tubeGroup.rotation.z = -1.22;
+      tubeGroup.rotation.z = -1.92;
       reactionApparatus.add(tubeGroup);
       const testTube = new THREE.Mesh(new THREE.CylinderGeometry(0.29, 0.34, 2.15, 32, 1, true), apparatusGlass);
       tubeGroup.add(testTube);
@@ -380,15 +374,15 @@ export function HeroMoleculeScene() {
       const dustCount = 420;
       const dustPositions = new Float32Array(dustCount * 3);
       const productDustColors = new Float32Array(dustCount * 3);
-      const greenDust = new THREE.Color(0x3b9a68);
-      const darkDust = new THREE.Color(0x2a202d);
+      const greenDust = new THREE.Color(0x4f9568);
+      const darkDust = new THREE.Color(0x343a35);
       for (let index = 0; index < dustCount; index += 1) {
         const angle = pseudoRandom(index + 1101) * Math.PI * 2;
         const radius = Math.sqrt(pseudoRandom(index + 1401));
         dustPositions[index * 3] = 0.1 + Math.cos(angle) * radius * 0.1;
         dustPositions[index * 3 + 1] = 0.67 + pseudoRandom(index + 1701) * 0.22;
         dustPositions[index * 3 + 2] = Math.sin(angle) * radius * 0.12;
-        const productColor = index % 3 === 0 ? greenDust : darkDust;
+        const productColor = index % 3 === 2 ? darkDust : greenDust;
         productDustColors[index * 3] = productColor.r;
         productDustColors[index * 3 + 1] = productColor.g;
         productDustColors[index * 3 + 2] = productColor.b;
@@ -417,8 +411,8 @@ export function HeroMoleculeScene() {
       const productDust = new THREE.Points(productDustGeometry, productDustMaterial);
       tubeGroup.add(productDust);
 
-      const granuleCount = 320;
-      const granuleGeometry = new THREE.IcosahedronGeometry(0.022, 0);
+      const granuleCount = 640;
+      const granuleGeometry = new THREE.IcosahedronGeometry(0.019, 0);
       const reactantGranuleMaterial = new THREE.MeshStandardMaterial({
         color: 0xffffff,
         transparent: true,
@@ -442,21 +436,21 @@ export function HeroMoleculeScene() {
       const granuleBaseRotations = new Float32Array(granuleCount * 3);
       const granuleScales = new Float32Array(granuleCount * 3);
       const granulePhases = new Float32Array(granuleCount);
-      const reactantColors = [new THREE.Color(0x330742), new THREE.Color(0x4d0e65), new THREE.Color(0x6a1987), new THREE.Color(0x81269c)];
-      const productColors = [new THREE.Color(0x17201b), new THREE.Color(0x242c27), new THREE.Color(0x31533f), new THREE.Color(0x111612)];
+      const reactantColors = [new THREE.Color(0x54106d), new THREE.Color(0x6d178b), new THREE.Color(0x8527a3), new THREE.Color(0x9840b3)];
+      const productColors = [new THREE.Color(0x303632), new THREE.Color(0x3f704f), new THREE.Color(0x4f8b61), new THREE.Color(0x5a9b6b)];
 
       for (let index = 0; index < granuleCount; index += 1) {
         const longitudinal = pseudoRandom(index + 2201);
         const angle = pseudoRandom(index + 2501) * Math.PI * 2;
-        const pileProfile = 0.46 + Math.sin(longitudinal * Math.PI) * 0.54;
-        const radius = Math.sqrt(pseudoRandom(index + 2801)) * 0.145 * pileProfile;
-        granuleBasePositions[index * 3] = 0.11 + Math.cos(angle) * radius * 0.72;
-        granuleBasePositions[index * 3 + 1] = 0.56 + longitudinal * 0.4;
+        const pileProfile = 0.78 + Math.sin(longitudinal * Math.PI) * 0.22;
+        const radius = Math.sqrt(pseudoRandom(index + 2801)) * 0.18 * pileProfile;
+        granuleBasePositions[index * 3] = 0.08 + Math.cos(angle) * radius * 0.84;
+        granuleBasePositions[index * 3 + 1] = 0.58 + longitudinal * 0.4;
         granuleBasePositions[index * 3 + 2] = Math.sin(angle) * radius;
         granuleBaseRotations[index * 3] = pseudoRandom(index + 3101) * Math.PI;
         granuleBaseRotations[index * 3 + 1] = pseudoRandom(index + 3401) * Math.PI;
         granuleBaseRotations[index * 3 + 2] = pseudoRandom(index + 3701) * Math.PI;
-        const scale = 0.48 + pseudoRandom(index + 4001) * 0.72;
+        const scale = 0.62 + pseudoRandom(index + 4001) * 0.72;
         granuleScales[index * 3] = scale;
         granuleScales[index * 3 + 1] = scale * (0.78 + pseudoRandom(index + 4301) * 0.38);
         granuleScales[index * 3 + 2] = scale * (0.82 + pseudoRandom(index + 4601) * 0.34);
@@ -507,26 +501,20 @@ export function HeroMoleculeScene() {
         .applyAxisAngle(new THREE.Vector3(0, 0, 1), tubeGroup.rotation.z)
         .add(tubeGroup.position);
       const deliveryCurve = new THREE.CatmullRomCurve3([
-        // J-shaped path: leave the stopper horizontally, dip below the jar mouth,
-        // then turn upward inside the inverted collection jar.
+        // Stay outside the jar wall until the tube is below its open mouth,
+        // then turn into the centre and rise without intersecting the glass.
         tubeLocalToApparatus(-1.36),
-        new THREE.Vector3(-0.66, -0.12, 0.08),
-        new THREE.Vector3(-0.84, -0.22, 0.08),
-        new THREE.Vector3(-0.96, -0.62, 0.08),
-        new THREE.Vector3(-1.06, -0.76, 0.08),
-        new THREE.Vector3(-1.18, -0.68, 0.08),
-        new THREE.Vector3(-1.18, -0.36, 0.08),
+        new THREE.Vector3(-0.58, 0.76, 0.08),
+        new THREE.Vector3(-0.6, 0.16, 0.08),
+        new THREE.Vector3(-0.62, -0.62, 0.08),
+        new THREE.Vector3(-0.76, -0.82, 0.08),
+        new THREE.Vector3(-1.18, -0.82, 0.08),
+        new THREE.Vector3(-1.18, -0.5, 0.08),
         new THREE.Vector3(-1.18, 0.2, 0.08),
       ]);
       deliveryCurve.curveType = "centripetal";
-      const deliveryTubeOutline = new THREE.Mesh(
-        new THREE.TubeGeometry(deliveryCurve, 88, 0.12, 16, false),
-        deliveryTubeOutlineMaterial,
-      );
-      deliveryTubeOutline.renderOrder = 5;
-      reactionApparatus.add(deliveryTubeOutline);
       const deliveryTube = new THREE.Mesh(
-        new THREE.TubeGeometry(deliveryCurve, 88, 0.078, 16, false),
+        new THREE.TubeGeometry(deliveryCurve, 88, 0.088, 16, false),
         deliveryTubeMaterial,
       );
       deliveryTube.renderOrder = 6;
@@ -539,12 +527,12 @@ export function HeroMoleculeScene() {
       standRod.position.set(1.65, -0.05, -0.35);
       reactionApparatus.add(standRod);
       const clamp = new THREE.Mesh(new THREE.BoxGeometry(0.92, 0.08, 0.1), standMaterial);
-      clamp.position.set(1.24, 0.5, -0.22);
-      clamp.rotation.z = -0.18;
+      clamp.position.set(1.3, 0.18, -0.22);
+      clamp.rotation.z = -0.3;
       reactionApparatus.add(clamp);
 
       const burner = new THREE.Group();
-      burner.position.set(1.45, -0.7, 0.08);
+      burner.position.set(1.7, -0.7, 0.08);
       reactionApparatus.add(burner);
       const burnerBody = new THREE.Mesh(
         new THREE.CylinderGeometry(0.24, 0.3, 0.38, 28),
@@ -764,6 +752,14 @@ export function HeroMoleculeScene() {
         setReactionStatus("running");
       };
 
+      returnToModelRef.current = () => {
+        reactionStartedAt = null;
+        reactionCompletionSignaled = false;
+        resetReactionScene();
+        product.rotation.set(-0.06, 0.16, 0);
+        targetZoom = 9.7;
+        setReactionStatus("idle");
+      };
       resetViewRef.current = () => {
         product.rotation.set(-0.06, 0.16, 0);
         targetZoom = 9.7;
@@ -824,10 +820,14 @@ export function HeroMoleculeScene() {
 
         if (reactionStartedAt !== null) {
           const conversion = THREE.MathUtils.smoothstep(reactionProgress, 0.18, 0.82);
-          permanganateDustMaterial.opacity = Math.max(0.28 - conversion * 0.34, 0);
-          productDustMaterial.opacity = Math.min(conversion * 0.3, 0.28);
-          reactantGranuleMaterial.opacity = Math.max(0.96 - conversion * 1.12, 0);
-          productGranuleMaterial.opacity = Math.min(conversion * 1.04, 0.96);
+          permanganateDustMaterial.opacity = Math.max(0.28 - conversion * 0.5, 0);
+          productDustMaterial.opacity = conversion < 0.48 ? 0 : Math.min((conversion - 0.48) * 0.24, 0.12);
+          reactantGranuleMaterial.opacity = conversion < 0.42
+            ? 0.96
+            : Math.max(0.96 - ((conversion - 0.42) / 0.22) * 0.96, 0);
+          productGranuleMaterial.opacity = conversion < 0.48
+            ? 0
+            : Math.min(((conversion - 0.48) / 0.3) * 0.96, 0.96);
           permanganateDust.rotation.y += reducedMotion ? 0 : 0.002;
           productDust.rotation.y -= reducedMotion ? 0 : 0.0015;
           const convertedCount = Math.floor(conversion * reactionCrystals.length);
@@ -926,6 +926,7 @@ export function HeroMoleculeScene() {
       resizeObserver?.disconnect();
       resetViewRef.current = () => undefined;
       startReactionRef.current = () => undefined;
+      returnToModelRef.current = () => undefined;
       removeInteractions();
     };
   }, []);
@@ -956,6 +957,16 @@ export function HeroMoleculeScene() {
         <span><Rotate3d size={15} /> Kéo ngang để xoay</span>
         <span><ZoomIn size={15} /> Ctrl + cuộn để phóng</span>
       </div>
+      {reactionStatus !== "idle" && (
+        <button
+          type="button"
+          className="hero-webgl-return"
+          onClick={() => returnToModelRef.current()}
+        >
+          <ArrowLeft size={17} aria-hidden="true" />
+          <span>{"V\u1ec1 m\u00f4 h\u00ecnh 3D"}</span>
+        </button>
+      )}
       <button
         type="button"
         className={`hero-webgl-reaction is-${reactionStatus}`}
