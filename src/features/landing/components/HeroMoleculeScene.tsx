@@ -1,9 +1,10 @@
-import { Rotate3d, ScanLine, ZoomIn } from "lucide-react";
+import { Rotate3d, RotateCcw, ScanLine, ZoomIn } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import type { Material, Mesh, Object3D, WebGLRenderer } from "three";
 
 export function HeroMoleculeScene() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const resetViewRef = useRef<() => void>(() => undefined);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -88,7 +89,6 @@ export function HeroMoleculeScene() {
         }),
       );
       cardFace.rotation.x = -Math.PI / 2;
-      cardFace.rotation.z = Math.PI;
       cardFace.position.y = -1.455;
       cardFace.receiveShadow = true;
       product.add(cardFace);
@@ -300,6 +300,11 @@ export function HeroMoleculeScene() {
       let previousY = 0;
       let targetZoom = camera.position.z;
 
+      resetViewRef.current = () => {
+        product.rotation.set(-0.06, 0.16, 0);
+        targetZoom = 9.7;
+      };
+
       const onPointerDown = (event: PointerEvent) => {
         dragging = true;
         previousX = event.clientX;
@@ -322,6 +327,7 @@ export function HeroMoleculeScene() {
         canvas.classList.remove("is-dragging");
       };
       const onWheel = (event: WheelEvent) => {
+        if (!event.ctrlKey && !event.metaKey) return;
         event.preventDefault();
         targetZoom = THREE.MathUtils.clamp(targetZoom + event.deltaY * 0.004, 7.2, 11.8);
       };
@@ -382,6 +388,7 @@ export function HeroMoleculeScene() {
       disposed = true;
       cancelAnimationFrame(frame);
       resizeObserver?.disconnect();
+      resetViewRef.current = () => undefined;
       removeInteractions();
     };
   }, []);
@@ -399,9 +406,13 @@ export function HeroMoleculeScene() {
         <strong>KMnO₄</strong>
       </div>
       <div className="hero-webgl-help" aria-hidden="true">
-        <span><Rotate3d size={15} /> Kéo để xoay</span>
-        <span><ZoomIn size={15} /> Cuộn để phóng</span>
+        <span><Rotate3d size={15} /> Kéo ngang để xoay</span>
+        <span><ZoomIn size={15} /> Ctrl + cuộn để phóng</span>
       </div>
+      <button type="button" className="hero-webgl-reset" onClick={() => resetViewRef.current()}>
+        <RotateCcw size={16} aria-hidden="true" />
+        <span>Đặt lại góc nhìn</span>
+      </button>
     </div>
   );
 }

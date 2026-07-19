@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 type SectionHeadingProps = {
   id: string;
-  label: string;
+  label?: string;
   title: ReactNode;
   description: string;
 };
@@ -10,8 +10,12 @@ type SectionHeadingProps = {
 export function SectionHeading({ id, label, title, description }: SectionHeadingProps) {
   return (
     <header className="section-header reveal" data-reveal>
-      <div className="section-tag">{label}</div>
-      <div className="section-divider" aria-hidden="true" />
+      {label && (
+        <>
+          <div className="section-tag">{label}</div>
+          <div className="section-divider" aria-hidden="true" />
+        </>
+      )}
       <h2 className="section-title" id={id}>
         {title}
       </h2>

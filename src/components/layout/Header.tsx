@@ -1,11 +1,13 @@
 import { Download, Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Brand } from "../common/Brand";
 import { DOWNLOAD_URL, navigation } from "../../features/landing/data/content";
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => {
@@ -18,7 +20,34 @@ export function Header() {
 
   useEffect(() => {
     document.body.classList.toggle("menu-open", menuOpen);
-    return () => document.body.classList.remove("menu-open");
+    if (!menuOpen) return () => document.body.classList.remove("menu-open");
+
+    const focusable = Array.from(menuRef.current?.querySelectorAll<HTMLElement>("a, button") ?? []);
+    focusable[0]?.focus();
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        window.requestAnimationFrame(() => menuButtonRef.current?.focus());
+        return;
+      }
+      if (event.key !== "Tab" || focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.classList.remove("menu-open");
+    };
   }, [menuOpen]);
 
   const closeMenu = () => setMenuOpen(false);
@@ -41,6 +70,7 @@ export function Header() {
           </li>
         </ul>
         <button
+          ref={menuButtonRef}
           type="button"
           className={`hamburger${menuOpen ? " open" : ""}`}
           aria-label={menuOpen ? "Đóng menu" : "Mở menu"}
@@ -57,7 +87,13 @@ export function Header() {
         aria-label="Đóng menu"
         onClick={closeMenu}
       />
-      <div className={`mobile-menu${menuOpen ? " open" : ""}`} id="mobile-menu">
+      <div
+        ref={menuRef}
+        className={`mobile-menu${menuOpen ? " open" : ""}`}
+        id="mobile-menu"
+        aria-hidden={!menuOpen}
+        inert={!menuOpen}
+      >
         <div className="mobile-menu-links">
           {navigation.map((item) => (
             <a href={item.href} onClick={closeMenu} key={item.href}>

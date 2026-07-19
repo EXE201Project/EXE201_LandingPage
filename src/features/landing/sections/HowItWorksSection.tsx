@@ -17,9 +17,16 @@ export function HowItWorksSection() {
   const [currentStep, setCurrentStep] = useState(0);
   const touchStartX = useRef(0);
   const progressRef = useRef<HTMLDivElement>(null);
+  const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const total = steps.length;
 
-  const goTo = (index: number) => setCurrentStep((index + total) % total);
+  const goTo = (index: number) => setCurrentStep(Math.max(0, Math.min(total - 1, index)));
+
+  const focusStep = (index: number) => {
+    const nextIndex = Math.max(0, Math.min(total - 1, index));
+    goTo(nextIndex);
+    window.requestAnimationFrame(() => tabRefs.current[nextIndex]?.focus());
+  };
 
   useEffect(() => {
     const progress = progressRef.current;
@@ -34,8 +41,8 @@ export function HowItWorksSection() {
 
   const getPosition = (index: number) => {
     if (index === currentStep) return "is-active";
-    if (index === (currentStep - 1 + total) % total) return "is-prev";
-    if (index === (currentStep + 1) % total) return "is-next";
+    if (index === currentStep - 1) return "is-prev";
+    if (index === currentStep + 1) return "is-next";
     return "is-hidden";
   };
 
@@ -44,20 +51,13 @@ export function HowItWorksSection() {
       <div className="section-wrap">
         <SectionHeading
           id="how-heading"
-          label="Hướng dẫn sử dụng"
           title={<>Hành trình trải nghiệm <span>LABEDU</span></>}
-          description="Từ tải ứng dụng đến theo dõi tiến độ — giữ nguyên 7 bước, nhưng dễ quan sát và tương tác hơn."
+          description="Đi từng bước từ cài đặt, quét thẻ đến ôn tập; chỉ xem chi tiết khi bạn cần."
         />
 
         <div
           className="steps-slider journey-stage reveal"
           data-reveal
-          onKeyDown={(event) => {
-            if (event.key === "ArrowRight") goTo(currentStep + 1);
-            if (event.key === "ArrowLeft") goTo(currentStep - 1);
-            if (event.key === "Home") goTo(0);
-            if (event.key === "End") goTo(total - 1);
-          }}
         >
           <div className="steps-progress journey-progress" role="tablist" aria-label="Các bước sử dụng" ref={progressRef}>
             {steps.map((step, index) => (
@@ -65,11 +65,19 @@ export function HowItWorksSection() {
                 <button
                   type="button"
                   role="tab"
+                  id={`step-tab-${index}`}
+                  ref={(node) => { tabRefs.current[index] = node; }}
                   className={`step-dot${index === currentStep ? " active" : ""}${index < currentStep ? " done" : ""}`}
                   aria-selected={index === currentStep}
-                  aria-controls={`step-panel-${index}`}
+                  aria-controls={index === currentStep ? "journey-active-panel" : undefined}
                   aria-label={`Bước ${index + 1}: ${step.title}`}
                   onClick={() => goTo(index)}
+                  onKeyDown={(event) => {
+                    if (event.key === "ArrowRight") { event.preventDefault(); focusStep(currentStep + 1); }
+                    if (event.key === "ArrowLeft") { event.preventDefault(); focusStep(currentStep - 1); }
+                    if (event.key === "Home") { event.preventDefault(); focusStep(0); }
+                    if (event.key === "End") { event.preventDefault(); focusStep(total - 1); }
+                  }}
                 >
                   {String(index + 1).padStart(2, "0")}
                 </button>
@@ -113,9 +121,10 @@ export function HowItWorksSection() {
               return (
                 <article
                   className="journey-active"
-                  id={`step-panel-${index}`}
+                  id="journey-active-panel"
                   role="tabpanel"
                   aria-labelledby={`step-tab-${index}`}
+                  aria-live="polite"
                   key={step.title}
                 >
                   <div className="journey-active-copy">
@@ -132,11 +141,11 @@ export function HowItWorksSection() {
           </div>
 
           <div className="steps-controls journey-controls">
-            <button type="button" className="steps-btn steps-btn-prev" onClick={() => goTo(currentStep - 1)}>
+            <button type="button" className="steps-btn steps-btn-prev" onClick={() => goTo(currentStep - 1)} disabled={currentStep === 0}>
               <ArrowLeft size={17} aria-hidden="true" /> Trước
             </button>
             <div className="steps-counter" aria-live="polite"><span>{currentStep + 1}</span> / {total}</div>
-            <button type="button" className="steps-btn steps-btn-next" onClick={() => goTo(currentStep + 1)}>
+            <button type="button" className="steps-btn steps-btn-next" onClick={() => goTo(currentStep + 1)} disabled={currentStep === total - 1}>
               Tiếp <ArrowRight size={17} aria-hidden="true" />
             </button>
           </div>

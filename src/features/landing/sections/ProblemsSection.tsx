@@ -7,7 +7,8 @@ export function ProblemsSection() {
       <div className="section-wrap">
         <SectionHeading
           id="problem-heading"
-          label="Vấn đề học tập"
+
+
           title={<>Học Hóa <span>khó ở điểm nào?</span></>}
           description="Kiến thức thường dừng ở công thức và hình vẽ, trong khi học sinh cần được nhìn và tự mình thử."
         />

@@ -1,27 +1,34 @@
+import { CheckCircle2 } from "lucide-react";
 import { SectionHeading } from "../../../components/common/SectionHeading";
 import { benefits } from "../data/content";
 
 export function BenefitsSection() {
   return (
     <section id="benefits" aria-labelledby="benefits-heading">
-      <div className="section-wrap">
-        <SectionHeading
-          id="benefits-heading"
-          label="Lợi ích"
-          title={<>LABEDU giúp học Hóa <span>dễ hơn ra sao?</span></>}
-          description="Quét thẻ, xem mô hình, thử phản ứng và ôn lại ngay trong một hành trình."
-        />
-        <div className="features-grid">
-          {benefits.map((item, index) => (
-            <article className="feature-card benefit-card reveal" data-reveal style={{ transitionDelay: `${index * 50}ms` }} key={item.title}>
-              <div className={`feat-card-icon fci-${index + 1}`}><img src={item.image} alt={item.imageAlt} loading="lazy" /></div>
-              <div className="benefit-content">
-                <h3 className="feat-card-title">{item.title}</h3>
-                <p className="feat-card-desc">{item.description}</p>
-              </div>
-            </article>
-          ))}
+      <div className="section-wrap benefit-story">
+        <div className="benefit-story-intro">
+          <SectionHeading
+            id="benefits-heading"
+            title={<>Từ công thức trên giấy đến <span>trải nghiệm có thể chạm</span></>}
+            description="LABEDU không thay bài học trên lớp; ứng dụng bổ sung phần quan sát và thực hành mà sách giáo khoa khó thể hiện."
+          />
+          <figure className="benefit-story-visual reveal" data-reveal>
+            <img src="/assets/features/ar-molecule.jpg" alt="Màn hình quan sát mô hình phân tử AR trong LABEDU" loading="lazy" />
+            <figcaption>Ảnh chụp trực tiếp từ phiên bản thử nghiệm LABEDU</figcaption>
+          </figure>
         </div>
+
+        <ol className="benefit-outcomes" aria-label="Bốn lợi ích chính của LABEDU">
+          {benefits.map((item, index) => (
+            <li className="benefit-outcome reveal" data-reveal style={{ transitionDelay: `${index * 45}ms` }} key={item.title}>
+              <span className="benefit-outcome-number">{String(index + 1).padStart(2, "0")}</span>
+              <div>
+                <h3><CheckCircle2 size={19} aria-hidden="true" />{item.title}</h3>
+                <p>{item.description}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );

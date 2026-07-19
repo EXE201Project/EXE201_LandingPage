@@ -7,7 +7,8 @@ import { HowItWorksSection } from "../sections/HowItWorksSection";
 import { MoleculesSection } from "../sections/MoleculesSection";
 import { ProblemsSection } from "../sections/ProblemsSection";
 import { SocialProofSection } from "../sections/SocialProofSection";
-import { TestimonialsSection } from "../sections/TestimonialsSection";
+
+
 
 export function LandingPage() {
   useScrollReveal();
@@ -21,7 +22,8 @@ export function LandingPage() {
       <HowItWorksSection />
       <MoleculesSection />
       <SocialProofSection />
-      <TestimonialsSection />
+
+
       <DownloadSection />
     </>
   );

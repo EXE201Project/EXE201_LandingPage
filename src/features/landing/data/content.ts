@@ -10,7 +10,7 @@ export const navigation: NavigationItem[] = [
 
 export const footerLinks: NavigationItem[] = [
   ...navigation,
-  { label: "Phản hồi", href: "#testimonials" },
+  { label: "Tải ứng dụng", href: "#download" },
 ];
 
 export const problems: ImageContentItem[] = [

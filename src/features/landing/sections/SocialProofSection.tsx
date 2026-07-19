@@ -16,7 +16,8 @@ export function SocialProofSection() {
       <div className="section-wrap">
         <SectionHeading
           id="social-proof-heading"
-          label="Độ tin cậy"
+
+
           title={<>Một dự án giáo dục <span>có nguồn gốc rõ ràng</span></>}
           description="LABEDU được phát triển trong khuôn khổ Capstone EXE201 tại FPT University."
         />

@@ -34,7 +34,8 @@ export function FeaturesSection() {
       <div className="section-wrap">
         <SectionHeading
           id="features-heading"
-          label="Tính năng nổi bật"
+
+
           title={<>Một hành trình học tập <span>liền mạch</span></>}
           description="Ba bước nối thẻ vật lý với trải nghiệm AR và bài ôn tập."
         />
