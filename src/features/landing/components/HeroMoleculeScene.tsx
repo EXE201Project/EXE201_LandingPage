@@ -417,56 +417,85 @@ export function HeroMoleculeScene() {
       const productDust = new THREE.Points(productDustGeometry, productDustMaterial);
       tubeGroup.add(productDust);
 
-      const granuleCount = 150;
-      const granuleGeometry = new THREE.DodecahedronGeometry(0.034, 0);
+      const granuleCount = 320;
+      const granuleGeometry = new THREE.IcosahedronGeometry(0.022, 0);
       const reactantGranuleMaterial = new THREE.MeshStandardMaterial({
         color: 0xffffff,
         transparent: true,
         opacity: 0.96,
-        roughness: 0.78,
-        metalness: 0.02,
+        roughness: 0.72,
+        metalness: 0.01,
         vertexColors: true,
       });
       const productGranuleMaterial = new THREE.MeshStandardMaterial({
         color: 0xffffff,
         transparent: true,
         opacity: 0,
-        roughness: 0.9,
+        roughness: 0.88,
         metalness: 0.01,
         vertexColors: true,
       });
       const reactantGranules = new THREE.InstancedMesh(granuleGeometry, reactantGranuleMaterial, granuleCount);
       const productGranules = new THREE.InstancedMesh(granuleGeometry, productGranuleMaterial, granuleCount);
       const granuleTransform = new THREE.Object3D();
-      const reactantColors = [new THREE.Color(0x3c0c52), new THREE.Color(0x5d127d), new THREE.Color(0x7a2498)];
-      const productColors = [new THREE.Color(0x26312b), new THREE.Color(0x19201c), new THREE.Color(0x395e48)];
+      const granuleBasePositions = new Float32Array(granuleCount * 3);
+      const granuleBaseRotations = new Float32Array(granuleCount * 3);
+      const granuleScales = new Float32Array(granuleCount * 3);
+      const granulePhases = new Float32Array(granuleCount);
+      const reactantColors = [new THREE.Color(0x330742), new THREE.Color(0x4d0e65), new THREE.Color(0x6a1987), new THREE.Color(0x81269c)];
+      const productColors = [new THREE.Color(0x17201b), new THREE.Color(0x242c27), new THREE.Color(0x31533f), new THREE.Color(0x111612)];
+
       for (let index = 0; index < granuleCount; index += 1) {
-        const spread = Math.sqrt(pseudoRandom(index + 2201));
+        const longitudinal = pseudoRandom(index + 2201);
         const angle = pseudoRandom(index + 2501) * Math.PI * 2;
-        granuleTransform.position.set(
-          0.1 + Math.cos(angle) * spread * 0.12,
-          0.62 + pseudoRandom(index + 2801) * 0.3,
-          Math.sin(angle) * spread * 0.14,
-        );
-        granuleTransform.rotation.set(
-          pseudoRandom(index + 3101) * Math.PI,
-          pseudoRandom(index + 3401) * Math.PI,
-          pseudoRandom(index + 3701) * Math.PI,
-        );
-        const granuleScale = 0.5 + pseudoRandom(index + 4001) * 0.72;
-        granuleTransform.scale.set(
-          granuleScale,
-          granuleScale * (0.72 + pseudoRandom(index + 4301) * 0.5),
-          granuleScale * (0.78 + pseudoRandom(index + 4601) * 0.4),
-        );
-        granuleTransform.updateMatrix();
-        reactantGranules.setMatrixAt(index, granuleTransform.matrix);
-        productGranules.setMatrixAt(index, granuleTransform.matrix);
+        const pileProfile = 0.46 + Math.sin(longitudinal * Math.PI) * 0.54;
+        const radius = Math.sqrt(pseudoRandom(index + 2801)) * 0.145 * pileProfile;
+        granuleBasePositions[index * 3] = 0.11 + Math.cos(angle) * radius * 0.72;
+        granuleBasePositions[index * 3 + 1] = 0.56 + longitudinal * 0.4;
+        granuleBasePositions[index * 3 + 2] = Math.sin(angle) * radius;
+        granuleBaseRotations[index * 3] = pseudoRandom(index + 3101) * Math.PI;
+        granuleBaseRotations[index * 3 + 1] = pseudoRandom(index + 3401) * Math.PI;
+        granuleBaseRotations[index * 3 + 2] = pseudoRandom(index + 3701) * Math.PI;
+        const scale = 0.48 + pseudoRandom(index + 4001) * 0.72;
+        granuleScales[index * 3] = scale;
+        granuleScales[index * 3 + 1] = scale * (0.78 + pseudoRandom(index + 4301) * 0.38);
+        granuleScales[index * 3 + 2] = scale * (0.82 + pseudoRandom(index + 4601) * 0.34);
+        granulePhases[index] = pseudoRandom(index + 4901) * Math.PI * 2;
         reactantGranules.setColorAt(index, reactantColors[index % reactantColors.length]);
         productGranules.setColorAt(index, productColors[index % productColors.length]);
       }
-      reactantGranules.instanceMatrix.needsUpdate = true;
-      productGranules.instanceMatrix.needsUpdate = true;
+
+      const updateGranuleFlow = (time: number, agitation: number) => {
+        for (let index = 0; index < granuleCount; index += 1) {
+          const phase = granulePhases[index];
+          const surfaceLift = index % 23 === 0
+            ? Math.max(Math.sin(time * 5.2 + phase), 0) * 0.055 * agitation
+            : 0;
+          const flow = Math.sin(time * 3.6 + phase) * agitation;
+          granuleTransform.position.set(
+            granuleBasePositions[index * 3] - surfaceLift + flow * 0.008,
+            granuleBasePositions[index * 3 + 1] + Math.sin(time * 2.4 + phase) * 0.011 * agitation,
+            granuleBasePositions[index * 3 + 2] + Math.cos(time * 3.1 + phase) * 0.008 * agitation,
+          );
+          granuleTransform.rotation.set(
+            granuleBaseRotations[index * 3] + time * 0.16 * agitation,
+            granuleBaseRotations[index * 3 + 1] + flow * 0.3,
+            granuleBaseRotations[index * 3 + 2] - time * 0.12 * agitation,
+          );
+          granuleTransform.scale.set(
+            granuleScales[index * 3],
+            granuleScales[index * 3 + 1],
+            granuleScales[index * 3 + 2],
+          );
+          granuleTransform.updateMatrix();
+          reactantGranules.setMatrixAt(index, granuleTransform.matrix);
+          productGranules.setMatrixAt(index, granuleTransform.matrix);
+        }
+        reactantGranules.instanceMatrix.needsUpdate = true;
+        productGranules.instanceMatrix.needsUpdate = true;
+      };
+
+      updateGranuleFlow(0, 0);
       if (reactantGranules.instanceColor) reactantGranules.instanceColor.needsUpdate = true;
       if (productGranules.instanceColor) productGranules.instanceColor.needsUpdate = true;
       reactantGranules.castShadow = true;
@@ -718,6 +747,7 @@ export function HeroMoleculeScene() {
         productDustMaterial.opacity = 0;
         reactantGranuleMaterial.opacity = 0.96;
         productGranuleMaterial.opacity = 0;
+        updateGranuleFlow(0, 0);
       };
 
       startReactionRef.current = () => {
@@ -808,6 +838,7 @@ export function HeroMoleculeScene() {
           });
 
           const heating = reactionProgress < 0.88;
+          updateGranuleFlow(elapsed, reducedMotion ? 0 : heating ? 0.92 : 0.06);
           heatRing.visible = heating;
           heatMaterial.opacity = heating ? 0.28 + Math.sin(elapsed * 10) * 0.1 : 0;
           heatRing.scale.setScalar(0.9 + Math.sin(elapsed * 7.5) * 0.08);
