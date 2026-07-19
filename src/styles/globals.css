@@ -6058,3 +6058,331 @@ body.menu-open {
   display: inline-flex;
   align-items: center;
 }
+/* Selected Flash Card WebGL stage */
+.flashcard-webgl {
+  position: relative;
+  min-width: 0;
+  height: 278px;
+  overflow: hidden;
+  border-radius: 13px;
+  background: #eaf8ff;
+  box-shadow: 0 6px 8px rgba(10, 44, 98, 0.15);
+}
+
+.flashcard-webgl-poster,
+.flashcard-webgl-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.flashcard-webgl-poster {
+  z-index: 0;
+  padding: 14px;
+  object-fit: contain;
+  opacity: 1;
+  transition: opacity 360ms ease;
+}
+
+.flashcard-webgl-canvas {
+  z-index: 1;
+  opacity: 0;
+  cursor: grab;
+  touch-action: pan-y;
+  transition: opacity 360ms ease;
+}
+
+.flashcard-webgl-canvas.is-dragging {
+  cursor: grabbing;
+}
+
+.flashcard-webgl.is-ready .flashcard-webgl-poster {
+  opacity: 0;
+}
+
+.flashcard-webgl.is-ready .flashcard-webgl-canvas {
+  opacity: 1;
+}
+
+.flashcard-webgl-badge,
+.flashcard-webgl-hint {
+  position: absolute;
+  z-index: 3;
+  bottom: 10px;
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 9px;
+  border-radius: 10px;
+  color: var(--navy);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 5px 8px rgba(10, 44, 98, 0.12);
+  font-size: 0.68rem;
+  font-weight: 750;
+  pointer-events: none;
+}
+
+.flashcard-webgl-badge {
+  left: 10px;
+  color: var(--blue);
+}
+
+.flashcard-webgl-hint {
+  right: 10px;
+}
+
+/* Laptop hero balance and collision-free WebGL controls */
+@media (min-width: 901px) and (max-width: 1100px) {
+  .hero-system-grid {
+    grid-template-columns: minmax(340px, 0.84fr) minmax(470px, 1.16fr);
+    gap: 34px;
+    padding-inline: 42px;
+  }
+
+  .hero-system-features {
+    display: none;
+  }
+
+  .hero-trust-list {
+    flex-wrap: nowrap;
+    gap: 8px 13px;
+    font-size: 0.76rem;
+  }
+
+  .hero-stage-depth {
+    height: clamp(450px, 52vw, 500px);
+  }
+
+  .hero-webgl-help {
+    top: 70px;
+    right: 14px;
+    bottom: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    border-radius: 11px;
+  }
+}
+
+/* Compact project proof: one source card, three verifiable facts */
+.proof-layout-compact {
+  max-width: 980px;
+  grid-template-columns: minmax(300px, 0.95fr) minmax(300px, 1.05fr);
+  align-items: stretch;
+}
+
+.proof-layout-compact .proof-project-media {
+  height: 164px;
+}
+
+.proof-layout-compact .proof-project-content {
+  padding: 20px 22px 22px;
+}
+
+.proof-stats-compact {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+
+.proof-layout .proof-stats-compact .proof-stat-card {
+  min-height: 92px;
+  padding: 17px 20px;
+}
+
+.proof-layout .proof-stats-compact .proof-stat-num {
+  font-size: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .proof-layout-compact {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .proof-stats-compact {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .proof-layout .proof-stats-compact .proof-stat-card {
+    min-height: 110px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 699px) {
+  .flashcard-webgl {
+    height: 244px;
+  }
+
+  .flashcard-webgl-hint {
+    display: none;
+  }
+
+  .flashcard-webgl-badge {
+    min-height: 34px;
+  }
+
+  .proof-stats-compact {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .proof-layout .proof-stats-compact .proof-stat-card {
+    min-height: 82px;
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flashcard-webgl-poster,
+  .flashcard-webgl-canvas {
+    transition: none;
+  }
+}
+/* Dual-sided Flash Card scene and stable proof heading layout */
+.flashcard-webgl-posters,
+.flashcard-webgl-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.flashcard-webgl-posters {
+  z-index: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: 10px;
+  padding: 18px 16px 52px;
+  opacity: 1;
+  transition: opacity 360ms ease;
+}
+
+.flashcard-webgl-posters img {
+  display: block;
+  width: 100%;
+  max-height: 100%;
+  border-radius: 10px;
+  object-fit: contain;
+  box-shadow: 0 8px 18px rgba(10, 44, 98, 0.14);
+}
+
+.flashcard-webgl.is-ready .flashcard-webgl-posters {
+  opacity: 0;
+}
+
+.flashcard-showcase-copy {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.flashcard-showcase-note {
+  grid-column: 1;
+  margin-top: 5px;
+  color: #4d6f92;
+  font-size: 0.72rem;
+  font-weight: 650;
+}
+
+#social-proof .section-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+#social-proof .section-title,
+#social-proof .section-sub {
+  position: static;
+  margin: 0;
+}
+
+#social-proof .section-sub {
+  max-width: 620px;
+}
+
+.proof-layout .proof-stats-compact {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (max-width: 900px) {
+  .proof-layout .proof-stats-compact {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 699px) {
+  .flashcard-webgl-posters {
+    gap: 7px;
+    padding: 14px 10px 46px;
+  }
+
+  .proof-layout .proof-stats-compact {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flashcard-webgl-posters {
+    transition: none;
+  }
+}
+/* A physical two-sided card: drag or activate the control to reveal the reverse */
+.flashcard-webgl-flip {
+  position: absolute;
+  z-index: 4;
+  top: 10px;
+  right: 10px;
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 12px;
+  border: 1px solid rgba(8, 127, 232, 0.2);
+  border-radius: 11px;
+  color: var(--navy);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 6px 12px rgba(10, 44, 98, 0.14);
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 760;
+  cursor: pointer;
+}
+
+.flashcard-webgl-flip:hover {
+  color: var(--blue);
+  transform: translateY(-1px);
+}
+
+.flashcard-webgl-flip:focus-visible {
+  outline: 3px solid rgba(20, 184, 229, 0.36);
+  outline-offset: 2px;
+}
+
+@media (max-width: 420px) {
+  .flashcard-webgl-flip {
+    width: 42px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .flashcard-webgl-flip span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flashcard-webgl-flip {
+    transition: none;
+  }
+}

@@ -1,12 +1,12 @@
-import { ChevronLeft, ChevronRight, RotateCcw, Search } from "lucide-react";
+import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { SectionHeading } from "../../../components/common/SectionHeading";
+import { FlashCardWebGLScene } from "../components/FlashCardWebGLScene";
 import { flashCards } from "../data/content";
 
 export function MoleculesSection() {
   const [query, setQuery] = useState("");
   const [activeFormula, setActiveFormula] = useState<string>(flashCards[0].formula);
-  const [showBack, setShowBack] = useState(false);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(8);
 
@@ -40,7 +40,6 @@ export function MoleculesSection() {
 
   const chooseCard = (formula: string) => {
     setActiveFormula(formula);
-    setShowBack(false);
   };
 
   return (
@@ -55,20 +54,16 @@ export function MoleculesSection() {
 
         <div className="flashcard-library reveal" data-reveal>
           <div className="flashcard-showcase">
-            <div className={"flashcard-stage" + (showBack ? " is-flipped" : "")}>
-              <img
-                src={showBack ? activeCard.back : activeCard.front}
-                alt={(showBack ? "Mặt sau" : "Mặt trước") + " Flash Card " + activeCard.name}
-              />
-            </div>
+            <FlashCardWebGLScene
+              frontImage={activeCard.front}
+              backImage={activeCard.back}
+              cardName={activeCard.name}
+            />
             <div className="flashcard-showcase-copy">
               <span>Flash Card đang chọn</span>
               <strong>{activeCard.formula}</strong>
               <p>{activeCard.name}</p>
-              <button type="button" onClick={() => setShowBack((value) => !value)}>
-                <RotateCcw size={17} aria-hidden="true" />
-                {showBack ? "Xem mặt trước" : "Xem mặt sau"}
-              </button>
+              <span className="flashcard-showcase-note">Kéo hoặc chạm vào thẻ để xem mặt còn lại</span>
             </div>
           </div>
 
