@@ -1,6 +1,6 @@
 import type { ImageContentItem, NavigationItem, StepItem, Testimonial } from "../types";
 
-export const DOWNLOAD_URL = "https://play.google.com/apps/internaltest/4701604803919893584";
+export const DOWNLOAD_URL = "https://play.google.com/store/apps/details?id=com.hoaianstudio.labedu";
 
 export const navigation: NavigationItem[] = [
   { label: "Trải nghiệm", href: "#features" },
