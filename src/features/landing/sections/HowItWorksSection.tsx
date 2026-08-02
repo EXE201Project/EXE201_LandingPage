@@ -133,7 +133,8 @@ export function HowItWorksSection() {
                     <p>{stepDescriptions[index]}</p>
                   </div>
                   <div className="journey-active-media">
-                    <img src={step.image} alt={step.imageAlt} />
+                    <img src={step.image} alt="" aria-hidden="true" className="journey-media-backdrop" />
+                    <img src={step.image} alt={step.imageAlt} className="journey-media-main" />
                   </div>
                 </article>
               );
