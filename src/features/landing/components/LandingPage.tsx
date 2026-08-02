@@ -1,4 +1,5 @@
 import { useScrollReveal } from "../hooks/useScrollReveal";
+import { ArPassSection } from "../sections/ArPassSection";
 import { BenefitsSection } from "../sections/BenefitsSection";
 import { DownloadSection } from "../sections/DownloadSection";
 import { FeaturesSection } from "../sections/FeaturesSection";
@@ -22,8 +23,7 @@ export function LandingPage() {
       <HowItWorksSection />
       <MoleculesSection />
       <SocialProofSection />
-
-
+      <ArPassSection />
       <DownloadSection />
     </>
   );
