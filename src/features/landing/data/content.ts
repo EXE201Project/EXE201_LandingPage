@@ -6,6 +6,7 @@ export const navigation: NavigationItem[] = [
   { label: "Trải nghiệm", href: "#features" },
   { label: "Cách sử dụng", href: "#how" },
   { label: "Bộ Flash Card", href: "#molecules" },
+  { label: "Gói AR 30 ngày", href: "#ar-pass" },
 ];
 
 export const footerLinks: NavigationItem[] = [
